@@ -4,6 +4,8 @@
 ## Useful Lng, Lat
 
 * USA: center: [ -96, 38 ],
+* me: map.setCenter([-122.431,37.803])
+
 
 ## Useful MapBox Links
 
@@ -14,10 +16,17 @@
 
 ## Lessons Learned
 
-Torn off logo
+Turn off logo
 
 * logoPosition: 'top-right',
 * .mapboxgl-ctrl-top-right { display: none; }
+
+Three.js
+* Y-axis is up
+* World is a 1 x 1 x 1 cube with origin at bottom upper right
+* Null Isand is at ( 0.5, 0.5, 0 )
+* Because it is a box of size 1 unit, there may be camera near issues.
+
 
 
 ## keyboard shortcuts:
