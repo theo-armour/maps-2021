@@ -1,17 +1,17 @@
-<span style=display:none; >[You are now in a GitHub source code view - click this link to view Read Me file as a web page]( https://theo-armour.github.io/2021/sandbox/us-county-votes/readme.html  "View file as a web page." ) </span>
+<span style=display:none; >[You are now in a GitHub source code view - click this link to view Read Me file as a web page]( https://theo-armour.github.io/maps-2021/sandbox/us-county-votes/readme.html  "View file as a web page." ) </span>
 
-<div><input type=button onclick=window.top.location.href="https://github.com/theo-armour/2020/tree/master/sandbox/us-county-votes/";
+<div><input type=button onclick=window.top.location.href="https://github.com/theo-armour/maps-2021/tree/master/sandbox/us-county-votes/";
 value='You are now in a GitHub web page view - Click this button to view this read me file as source code' ></div>
 
 
-# [US County Votes Read Me]( https://github.com/theo-armour/2020/tree/master/sandbox/us-county-votes/ )
+# [US County Votes Read Me]( https://github.com/theo-armour/maps-2021/tree/master/sandbox/us-county-votes/ )
 
 <!--@@@
 <div style=height:500px;overflow:hidden;width:100%;resize:both; ><iframe src="https://theo-armour.github.io/2021/sandbox/us-county-votes/" height=100% width=100% ></iframe></div>
 _US County Votes in a resizable window. One finger to rotate. Two to zoom. Three to pan._
 @@@-->
 
-### Full Screen: [US County Votes]( https://theo-armour.github.io/2021/sandbox/us-county-votes/ )
+### Full Screen: [US County Votes]( https://theo-armour.github.io/maps-2021/sandbox/us-county-votes/ )
 
 
 ## Team

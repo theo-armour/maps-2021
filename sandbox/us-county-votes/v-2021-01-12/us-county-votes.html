@@ -37,6 +37,7 @@
 
 
 	<div id="map"></div>
+
 	<script>
 		mapboxgl.accessToken = 'pk.eyJ1IjoidGhlb2EiLCJhIjoiY2o1YXFra3V2MGIzbzJxb2lneDUzaWhtZyJ9.7bYFAQabMXiYmcqW8NLfwg';
 		const map = ( window.map = new mapboxgl.Map( {
@@ -84,13 +85,13 @@
 				this.scene.add( directionalLight2 );
 
 				// use the three.js GLTF loader to add the 3D model to the three.js scene
-				// const loader = new THREE.GLTFLoader();
-				// loader.load(
-				// 	'https://docs.mapbox.com/mapbox-gl-js/assets/34M_17/34M_17.gltf',
-				// 	function ( gltf ) {
-				// 		this.scene.add( gltf.scene );
-				// 	}.bind( this )
-				// );
+				const loader = new THREE.GLTFLoader();
+				loader.load(
+					'https://docs.mapbox.com/mapbox-gl-js/assets/34M_17/34M_17.gltf',
+					function ( gltf ) {
+						this.scene.add( gltf.scene );
+					}.bind( this )
+				);
 
 				group = new THREE.Group();
 				group.name = "group";
