@@ -26,7 +26,7 @@ Three.js
 * World is a 1 x 1 x 1 cube with origin at bottom upper right
 * Null Island is at ( 0.5, 0.5, 0 )
 * Because it is a box of size 1 unit, there may be THREE.camera.near issues.
-
+* Need several meshes in order to start a render
 
 ## keyboard shortcuts:
 
