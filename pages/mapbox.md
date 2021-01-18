@@ -27,6 +27,7 @@ Three.js
 * Null Island is at ( 0.5, 0.5, 0 )
 * Because it is a box of size 1 unit, there may be THREE.camera.near issues.
 * Need several meshes in order to start a render
+* Cannot use a controller
 
 ## keyboard shortcuts:
 
