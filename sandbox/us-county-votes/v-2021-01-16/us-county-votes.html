@@ -233,9 +233,10 @@
 
 				const geometry = new THREE.BoxGeometry( 1, 20, 1 );
 				geometry.translate( 0, 10, 0 );
-				geometry.scale( 111000, 111000, 111000 )
+				geometry.scale( 111000, 111000, 111000 );
 				const material = new THREE.MeshNormalMaterial();
 				tellTale = new THREE.Mesh( geometry, material );
+				//tellTale.geometry.scale( 11, 11, 11 );
 				//mesh.position.set( -122, lat2y( 38 ), 5 );
 
 				scene.add( tellTale );
@@ -253,24 +254,26 @@
 			}
 			//console.log( "e", event, event.point );
 
-			RAY.mouse.x = ( event.point.x / map.transform.width ) * 2 - 1;
-			RAY.mouse.y = 1 - ( event.point.y / map.transform.height ) * 2;
-			// RAY.mouse.x = ( event.point.x/ window.innerWidth ) * 2 - 1;
-			// RAY.mouse.y = -( event.point.y / window.innerHeight ) * 2 + 1;
-			//console.log( "", RAY.mouse.x );
+			//RAY.mouse.x = ( event.point.x / map.transform.width ) * 2 - 1;
+			//RAY.mouse.y = 1 - ( event.point.y / map.transform.height ) * 2;
+			RAY.mouse.x = ( event.point.x/ window.innerWidth ) * 2 - 1;
+			RAY.mouse.y = -( event.point.y / window.innerHeight ) * 2 + 1;
+			console.log( "", RAY.mouse.x );
 
-			tellTale.position.set( RAY.mouse.x / modelTransform.scale, 10, RAY.mouse.y / modelTransform.scale );
+			tellTale.position.set( RAY.mouse.x / ( modelTransform.scale ), 0, RAY.mouse.y / modelTransform.scale );
 
+			xx = group.children.filter( child => child.position.distanceTo( tellTale.position ) < 100000 );
+			console.log( "xx", xx );
 			//RAY.raycaster.setFromCamera( RAY.mouse, camera );
 
 			pos = group.children[ 9 ].position.clone();
 			pos.x = pos.x - 5;
-			console.log( "distance", pos.distanceTo( group.children[ 9 ].position ) );
+			//console.log( "distance", pos.distanceTo( group.children[ 9 ].position ) );
 			RAY.raycaster.set( pos, new THREE.Vector3( 1, 0, 0 ) );
 
 			// calculate objects intersecting the picking ray
 			var intersects = RAY.raycaster.intersectObject( group.children[ 9 ], true );
-			console.log( "inter", intersects);
+			//console.log( "inter", intersects);
 
 			return intersects;
 
