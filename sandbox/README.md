@@ -9,9 +9,10 @@ value='You are now in a GitHub web page view - Click this button to view this re
 <!--@@@
 <div class=iframe-resize ><iframe src=https://theo-armour.github.io/maps-2021/sandbox/mapbox-2d/ height=100% width=100% ></iframe></div>
 _Sandbox in a resizable window. One finger to rotate. Two to zoom._
+@@@-->
 
 ### Full Screen: [Sandbox/mapbox-2d]( https://theo-armour.github.io/maps-2021/sandbox/mapbox-2d/ )
-@@@-->
+
 
 
 ## Concept
@@ -29,7 +30,7 @@ _Sandbox in a resizable window. One finger to rotate. Two to zoom._
 ## Change Log
 
 
-### 123
+### 2021-01-21
 
 * First commit
 
