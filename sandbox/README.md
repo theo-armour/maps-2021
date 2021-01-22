@@ -7,10 +7,10 @@ value='You are now in a GitHub web page view - Click this button to view this re
 # [Sandbox Read Me]( https://theo-armour.github.io/maps-2021/sandbox/readme.html )
 
 <!--@@@
-<div class=iframe-resize ><iframe src=https://theo-armour.github.io/maps-2021/ sandbox/ height=100% width=100% ></iframe></div>
+<div class=iframe-resize ><iframe src=https://theo-armour.github.io/maps-2021/sandbox/mapbox-2d/ height=100% width=100% ></iframe></div>
 _Sandbox in a resizable window. One finger to rotate. Two to zoom._
 
-### Full Screen: [Sandbox]( https://theo-armour.github.io/maps-2021/sandbox/ )
+### Full Screen: [Sandbox/mapbox-2d]( https://theo-armour.github.io/maps-2021/sandbox/mapbox-2d/ )
 @@@-->
 
 
