@@ -12,6 +12,8 @@ _ZZZZZ in a resizable window. One finger to rotate. Two to zoom._
 
 ## Concept
 
+A 3D happy place for mapping in 2021
+
 
 ## To Do / Wish List
 
@@ -27,7 +29,7 @@ _ZZZZZ in a resizable window. One finger to rotate. Two to zoom._
 
 ### 2021-07-08
 
-* First commit
+* First commit this read me
 
 
 ***
