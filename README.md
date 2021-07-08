@@ -2,11 +2,11 @@
 
 
 <!--@@@
-<div class=iframe-resize ><iframe src=https://theo-armour.github.io/maps-2021/ xxxxx/ height=100% width=100% ></iframe></div>
-_ZZZZZ in a resizable window. One finger to rotate. Two to zoom._
+<div class=iframe-resize ><iframe src=https://theo-armour.github.io/maps-2021/sandbox/us-county-votes/ height=100% width=100% ></iframe></div>
+_"US County Presidents Votes" in a resizable window. One finger to rotate. Two to zoom._
 
 
-### Full Screen: [ZZZZZ]( https://theo-armour.github.io/maps-2021/xxxxx/ )
+### Full Screen: [US County Presidents Vote]( https://theo-armour.github.io/maps-2021/sandbox/us-county-votes// )
 @@@-->
 
 
@@ -22,6 +22,18 @@ A 3D happy place for mapping in 2021
 
 
 ## Links of Interest
+
+Mapping 2020
+
+* https://theo-armour.github.io/2020/#apps/us-census-bureau-tracts-ca/index.html
+* https://theo-armour.github.io/2020/#apps/california-dasymetry/
+* https://theo-armour.github.io/2020/#journal/06/2020-06-18-brian/index.html
+
+Theo 2020
+
+* https://theo-armour.github.io/2020/#journal/06/2020-06-12-andrew.md
+* https://theo-armour.github.io/2020/#journal/06/2020-06-13-brian.md
+* https://theo-armour.github.io/2020/#journal/06/2020-06-19-don.md
 
 
 ## Change Log
