@@ -76,24 +76,34 @@
 
 			linesJhu = response.split( /\n/ ).map( line => line.split( "," ) );
 
-			//console.log( "lines", lines );
+			//console.log( "lines", linesJhu );
 
 			requestFile( urlIndemnity, onLoadIndemnity );
 
 
 		}
 
+
+
 		function onLoadIndemnity( response ) {
 
-			linesIndemnity = response.split( /\n/ ).map( line => line.split( "," ) );
+			linesIndemnity = response.split( /\n/ ).map( line => line.split( "," ) ).slice( 1 );
 
 			//console.log( "linesIndemnity", linesIndemnity );
 
-			for( line of linesIndemnity ) {
+			for ( line of linesIndemnity ) {
 
-				lineJhu = linesJhu.find( lineJ => lineJ[ 0 ] === line[ 2 ] )
+				line[ 2 ] = line[ 2 ] && line[ 2 ].length === 4 ? "0" + line[ 2 ] : line[ 2 ];
 
-				console.log( "lineJhu", lineJhu );
+				lineJhu = linesJhu.find( lineJ => lineJ[ 0 ] === line[ 2 ] );
+
+				if ( !lineJhu ) {
+
+					console.log( "line", line );
+
+				}
+
+				//console.log( "lineJhu", lineJhu );
 			}
 
 		}
