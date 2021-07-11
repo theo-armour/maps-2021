@@ -68,9 +68,12 @@
 			<p>
 				<select id=selYear onchange=JFConParseCsv(this.selectedIndex) class=select-resize  size=10 ></select>
 			</p>
-			<label title="do it"> Scale of indicator bars: <output id=outInp>50</output>
-				<input [ type=range ] id=rngScale oninput=JFConParseCsv(selYear.selectIndex);outInp.value=value;>
-			</label>
+
+			<p>
+				<label title="Slide the little box left and right!"> Scale of indicator bars: <output id=outInp>50</output>
+					<input [ type=range ] id=rngScale oninput=JFConParseCsv(selYear.selectIndex);outInp.value=value;>
+				</label>
+			</p>
 
 			<div>
 				Things you can do:<br>

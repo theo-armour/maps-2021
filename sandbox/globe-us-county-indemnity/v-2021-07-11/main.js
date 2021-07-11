@@ -42,6 +42,8 @@ function init () {
 
 	THR.addLights();
 
+	THR.camera.position.set( -20, -65, 60 );
+
 	THR.group = THR.getGroupNew();
 
 
@@ -49,17 +51,16 @@ function init () {
 
 	GJS.initGeoJson();
 
+
 	const urlGeoJson = "https://pushme-pullyou.github.io/tootoo-2021/lib/assets/geojson/cb_2019_us_county_20m.geojson";
 
 	GJS.requestFile( urlGeoJson, GJS.onLoadGeoJson );
 
-	//THR.zoomObjectBoundingSphere();
-
-	THR.camera.position.set( -20, -65, 60 )
 
 	JFC.url = "https://theo-armour.github.io/maps-2021/data/soil-carbon-coalition/indemnity-geodata.csv";
 
 	JFC.requestFile( JFC.url, JFC.onLoadCsv, JFConParseCsv );
+
 
 	GLC.init();
 
@@ -70,7 +71,7 @@ function init () {
 	<button onclick="THR.setStats()">View the rendering statistics</button>
 </p>`;
 
-	THR.controls.autoRotate = false;
+
 
 	// if running on server, keeps address bar pointed to latest dev
 
@@ -83,6 +84,8 @@ function init () {
 
 
 	}
+
+	THR.controls.autoRotate = false; // Stop is way down here to display a bit of live rotation
 
 };
 
