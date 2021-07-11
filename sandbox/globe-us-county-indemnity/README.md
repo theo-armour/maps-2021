@@ -14,7 +14,9 @@ _US County Indemnity in a resizable window. One finger to rotate. Two to zoom._
 
 Display US crop insurance indemnities by county for 1979 to 2017. Losses due to declines in price, hail, and earthquakes, tornadoes, and hurricanes have been excluded from this accounting as having little to do with soil health or function.
 
+A perticular motivation is to display the data in a fun and lively manner in order to encourage you to manipulate the model and gain insights.
 
+You have many years experience looking at graphs on paper but only a few years experience looking at graphs on phones and tablets. Given that you are likely to increase your time looking at your phone in the future, we must consider the shape of the graphs to come.
 
 
 ## To Do / Wish List
