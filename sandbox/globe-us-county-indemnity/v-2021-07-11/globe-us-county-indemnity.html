@@ -5,10 +5,10 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0" />
 	<meta name="description"
-		content="TooToo 2021 uses the GitHub API to provide access to all the current files in a repository hosted with GitHub Pages.">
+		content="Losses due to declines in price, hail, and earthquakes, tornadoes, and hurricanes have been excluded from this accounting as having little to do with soil health or function.">
 	<meta name="keywords" content="JavaScript,Markdown,GitHub,FOSS">
 	<meta name="date" content="2021-07-11">
-	<title>US County Indemnity</title>
+	<title>US Crop Insurance Indemnities by County 1979-2017</title>
 
 	<!-- Copyright 2021 Theo Armour. MIT license -->
 	<link rel="stylesheet" href="https://pushme-pullyou.github.io/tootoo-2021/lib/style/style-2021-07-08.css">
@@ -64,9 +64,15 @@
 			<div id=GRVdivDetails></div>
 
 			<div id=MNUdivSample></div>
+			<p>
+				Vision & source: <a href="https://soilcarboncoalition.org/html/RMA_indemnities_1979_2017.html" target="_blank">soilcarboncoalition.org</a>
+			</p>
 
 			<p>
-				<select id=selYear onchange=JFConParseCsv(this.selectedIndex) class=select-resize  size=10 ></select>
+				<label title="Use the cursor keys to speed through the years!" >Select a year to display the indemnities:
+
+					<select id=selYear onchange=JFConParseCsv(this.selectedIndex) class=select-resize  size=10 ></select>
+				</label>
 			</p>
 
 			<p>
@@ -80,7 +86,7 @@
 				<ul>
 					<li>Touch a bar to view its details</li>
 					<li>In popup: click county name to Google</li>
-					<li>Use the cursor keys to scroll the list</li>
+					<li>Use the cursor keys to scroll the years</li>
 					<li>Rotate = one finger / left mouse</li>
 					<li>Zoom = two fingers / scroll wheel</li>
 					<li>Pan = three fingers / right mouse</li>

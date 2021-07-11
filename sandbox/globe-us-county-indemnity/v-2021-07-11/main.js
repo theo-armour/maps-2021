@@ -72,7 +72,6 @@ function init () {
 </p>`;
 
 
-
 	// if running on server, keeps address bar pointed to latest dev
 
 	if ( !location.hash && location.protocol === "https:" ) {
@@ -88,6 +87,7 @@ function init () {
 	THR.controls.autoRotate = false; // Stop is way down here to display a bit of live rotation
 
 };
+
 
 function JFConParseCsv ( index = 1) {
 
