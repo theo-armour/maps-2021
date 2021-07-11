@@ -12,29 +12,46 @@ _US County Indemnity in a resizable window. One finger to rotate. Two to zoom._
 
 ## Concept
 
+Display US crop insurance indemnities by county for 1979 to 2017. Losses due to declines in price, hail, and earthquakes, tornadoes, and hurricanes have been excluded from this accounting as having little to do with soil health or function.
+
+
+
 
 ## To Do / Wish List
 
+This is a first pass at displaying the data. Further revisions might add more data
+
+* Arable acres per county is added to data set; indemnity per acre is displayed
+* Current year color indicates the difference with a moving averages pf the data
+* Rainfall or other weather difference with moving average is indicated
+* Crop types are indicated
+* Legends and colors developed in more detail
+* Popups display statistics such as average and total indemnity for the entire rand and or decade
+* Data from more recent years is added
+* Data for all states and territories is added
+* Data is grabbed at load time from original sources
+* Entire graphic design and user experience is ameliorated
 
 ## Issues
 
 
 ## Links of Interest
 
+From Peter Donovan
+
 * https://soilcarboncoalition.org/
 * https://soilcarboncoalition.org/html/RMA_indemnities_1979_2017.html
-
 * https://soilcarboncoalition.org/length-green-1/
 * https://soilhealth.app/RMG-Montana/maps/1
 * https://github.com/Soil-Carbon-Coalition/soilhealth.production
 * https://soilhealth.app/
-## Change Log
 
+## Change Log
 
 ### 2021-07-11
 
 * First commit
-
+* Forked from https://github.com/pushme-pullyou/tootoo-2021/tree/main/lib-geo/glc-globe-csv
 
 ***
 

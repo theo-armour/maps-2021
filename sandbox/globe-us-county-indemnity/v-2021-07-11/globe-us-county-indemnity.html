@@ -20,9 +20,13 @@
 			/* 0 to 360 0=red 120=green 240=blue */
 		}
 
-		.feature { float:right; }
+		.feature {
+			float: right;
+		}
 
-		ul{  padding-left: 1rem }
+		ul {
+			padding-left: 1rem
+		}
 	</style>
 
 </head>
@@ -38,15 +42,16 @@
 		src="https://pushme-pullyou.github.io/tootoo-2021/cookbook/jfc-json-from-csv/v-2021-07-09/jfc-json-from-csv.js"></script>
 
 	<script src="https://pushme-pullyou.github.io/tootoo-2021/lib3d/thr-three/thr-threejs-2021-07-09.js"></script>
+	<script
+		src="https://pushme-pullyou.github.io/tootoo-2021/lib3d/thrr-three-raycaster/ray-raycaster-mousemove-2021-07-10.js"></script>
+	<script
+		src="https://pushme-pullyou.github.io/tootoo-2021/lib3d/thru-three-utilities/thru-three-utilities-2021-01-30.js"></script>
 
-	<script src="https://pushme-pullyou.github.io/tootoo-2021/lib3d/thrr-three-raycaster/ray-raycaster-mousemove-2021-07-10.js"></script>
-
-	<script src="https://pushme-pullyou.github.io/tootoo-2021/lib3d/thru-three-utilities/thru-three-utilities-2021-01-30.js"></script>
-
-	<script src="main.js"></script>
-	<script src="https://pushme-pullyou.github.io/tootoo-2021/lib-geo/glo-globe/v-2021-07-09-2023/glo-globe.js"></script>
+	<script
+		src="https://pushme-pullyou.github.io/tootoo-2021/lib-geo/glo-globe/v-2021-07-09-2023/glo-globe.js"></script>
 	<script src="https://pushme-pullyou.github.io/tootoo-2021/lib-geo/gjs-geojson/v-2021-07-10/gjs-geojson.js"></script>
 
+	<script src="main.js"></script>
 	<script src="glc-globe.csv.js"></script>
 
 	<details id=detNavMenu class="gmd-4">
@@ -64,19 +69,22 @@
 			<div id=GRVdivDetails></div>
 
 			<div id=MNUdivSample></div>
+			
 			<p>
-				Vision+source: <a href="https://soilcarboncoalition.org/html/RMA_indemnities_1979_2017.html" target="_blank">soilcarboncoalition.org</a>
+				Vision+source: <a href="https://soilcarboncoalition.org/html/RMA_indemnities_1979_2017.html"
+					target="_blank">soilcarboncoalition.org</a>
 			</p>
 
 			<p>
-				<label title="Use the cursor keys to speed through the years!" >Select a year to display the indemnities:
+				<label title="Use the cursor keys to speed through the years!">Select a year to display the indemnities:
 
-					<select id=selYear onchange=JFConParseCsv(this.selectedIndex) class=select-resize  size=10 ></select>
+					<select id=selYear onchange=JFConParseCsv(this.selectedIndex) class=select-resize size=10></select>
 				</label>
 			</p>
 
 			<p>
-				<label title="Slide the little box left and right!"> Scale of indicator bars: <output id=outInp>50</output>
+				<label title="Slide the little box left and right!"> Scale of indicator bars: <output
+						id=outInp>50</output>
 					<input [ type=range ] id=rngScale oninput=JFConParseCsv(selYear.selectIndex);outInp.value=value;>
 				</label>
 			</p>
@@ -103,7 +111,7 @@
 	</details>
 
 
-	<main id=main hidden >
+	<main id=main hidden>
 
 		<div id="divMainContent"></div>
 
