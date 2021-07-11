@@ -3,7 +3,7 @@
 
 <!--@@@
 <div class=iframe-resize ><iframe src=https://theo-armour.github.io/maps-2021/sandbox/globe-us-county-indemnity height=100% width=100% ></iframe></div>
-_ US County Indemnity in a resizable window. One finger to rotate. Two to zoom._
+_US County Indemnity in a resizable window. One finger to rotate. Two to zoom._
 
 
 ### Full Screen: [US County Indemnity]( https://theo-armour.github.io/maps-2021/sandbox/globe-us-county-indemnity/ )
@@ -21,9 +21,13 @@ _ US County Indemnity in a resizable window. One finger to rotate. Two to zoom._
 
 ## Links of Interest
 
+* https://soilcarboncoalition.org/
 * https://soilcarboncoalition.org/html/RMA_indemnities_1979_2017.html
 
-
+* https://soilcarboncoalition.org/length-green-1/
+* https://soilhealth.app/RMG-Montana/maps/1
+* https://github.com/Soil-Carbon-Coalition/soilhealth.production
+* https://soilhealth.app/
 ## Change Log
 
 
