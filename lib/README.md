@@ -33,6 +33,7 @@ Why not a single lib for all users and repos?
 ## To Do / Wish List
 
 
+
 ## Issues
 
 
@@ -59,7 +60,6 @@ Switching themes
 ### 2020-12-17
 
 * Sync this file
-
 
 ### 2020-11-11
 
