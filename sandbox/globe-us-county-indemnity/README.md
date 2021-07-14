@@ -4,10 +4,10 @@
 <!--@@@
 <div class=iframe-resize ><iframe src=https://theo-armour.github.io/maps-2021/sandbox/globe-us-county-indemnity height=100% width=100% ></iframe></div>
 _US County Indemnity in a resizable window. One finger to rotate. Two to zoom._
-
-
-### Full Screen: [US County Indemnity]( https://theo-armour.github.io/maps-2021/sandbox/globe-us-county-indemnity/ )
 @@@-->
+
+
+## Full Screen: [US County Indemnity]( https://theo-armour.github.io/maps-2021/sandbox/globe-us-county-indemnity/ )
 
 
 ## Concept
