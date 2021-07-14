@@ -116,7 +116,7 @@ function JFConParseCsv ( index = 1) {
 
 }
 
-// replace default RAY,getHTM
+// replace default RAY.getHTM
 
 RAY.getHtm = function ( intersected ) {
 	//console.log( "main intersected", intersected.instanceId );
