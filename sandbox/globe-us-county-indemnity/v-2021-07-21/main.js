@@ -158,7 +158,7 @@ function getBars2D ( arr, acres ) {
 	const bars = arr.map( ( item, index ) =>`
 <div class=hide >year: ${ 2021 - index }<br>indemnity : $${ item.toLocaleString() }<br>$/acre: ${ ( 1000000 * item / acres ).toLocaleString() }</div>
 <div class=bar2d style="background-color: cyan; color: black; margin-top:1px; height:1ch;width:${ scale * item }%;"
-title="">&nbsp;</div>` ).join( "" );
+title="" onmouseover="this.style.background='gray';" onmouseout="this.style.background='cyan';">&nbsp;</div>` ).join( "" );
 
 	//ht = DMTdivContainer.clientHeight - 00 + "px";
 

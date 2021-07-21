@@ -25,8 +25,8 @@ A globe is a useful reminder that the US is just a small part of the earth and t
 
 This is a first pass at displaying the data. Further revisions might add more data
 
-* Arable acres per county is added to data set; indemnity per acre is displayed
-* Current year color indicates the difference with a moving averages pf the data
+
+* Current year color indicates the difference with a moving averages of the data
 * Rainfall or other weather difference with moving average is indicated
 * Crop types and acres of crop areas are indicated
 * Legends and colors developed in more detail
@@ -92,6 +92,25 @@ NASS
 	* a framework or scaffold for a shared intelligence or user interface on landscape function
 
 ## Change Log
+
+### 2021-07-21
+
+* New data for 2018-2020 added
+* Cropland per county data added
+* New combined csv with indemnity plus lat, lon & pop created
+* Arable acres per county is added to data set; indemnity per acre is displayed
+* bars set to 12 sides - up from five
+
+Menu
+* slider bar added: Scale bar width: $$ per acre
+* Text scaled down so no scroll bar
+
+Popup
+* Number of acres in county added
+* Items reordered
+3D bar chart
+* Has instant popup
+* Hover effects added
 
 ### 2021-07-14
 
