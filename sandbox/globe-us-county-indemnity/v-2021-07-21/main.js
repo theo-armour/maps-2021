@@ -105,7 +105,9 @@ function JFConParseCsv ( index = 1) {
 
 	scale = scale * rngScale.value / 50;
 
-	const barData = JFC.json.map( line => [ scale * line[ 48 - index ], +line[ 3 ], +line[ 4 ] ] );
+	let scaleWidth = 1 * rngScaleWidth.value / 50
+
+	const barData = JFC.json.map( line => [ scale * line[ 48 - index ], scaleWidth * Math.log( 1000000 *  line[ 48 - index ] / line[ 49 ] ), +line[ 3 ], +line[ 4 ] ] );
 	//console.log( "barData", barData );
 
 	const mesh = GLC.getPoints( barData )
@@ -138,7 +140,7 @@ RAY.getHtm = function ( intersected ) {
 	</div>
 	<div>
 	<span style=color:#000;font-size:90%;> Indemnity by year</span>
-	${ getBars2D( county.slice( 6, 44 ), +county[ 49 ] ) }</div>`;
+	${ getBars2D( county.slice( 6, 48 ), +county[ 49 ] ) }</div>`;
 
 	return htm;
 
@@ -153,15 +155,15 @@ function getBars2D ( arr, acres ) {
 	const scale = 100 / max;
 	//const dateStrings = linesCases[ 0 ].slice( 4 ).reverse();
 
-	const bars = arr.map( ( item, index ) =>
-		`<div style="background-color: cyan; color: black; margin-top:1px; height:1ch; width:${ scale * item }%;"
-			title="year: ${ 2020 - index } indemnity : $${ item.toLocaleString() } $/acre: ${ ( 1000000 * item / acres ).toLocaleString() }">&nbsp;</div>`
-	).join( "" );
+	const bars = arr.map( ( item, index ) =>`
+<div class=hide >year: ${ 2021 - index }<br>indemnity : $${ item.toLocaleString() }<br>$/acre: ${ ( 1000000 * item / acres ).toLocaleString() }</div>
+<div class=bar2d style="background-color: cyan; color: black; margin-top:1px; height:1ch;width:${ scale * item }%;"
+title="">&nbsp;</div>` ).join( "" );
 
 	//ht = DMTdivContainer.clientHeight - 00 + "px";
 
 	return `<div style="background-color:pink;width:100%;"
-		title="Indemnity by year. Mouse over a bar to view data. Touch on phone: soon!" >${ bars }
+		title="Indemnity by year. Mouse over a bar to view itsdata for the year." >${ bars }
 	</div>`;
 
 }

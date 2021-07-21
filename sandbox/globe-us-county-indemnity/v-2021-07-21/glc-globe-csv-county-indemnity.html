@@ -27,6 +27,24 @@
 		ul {
 			padding-left: 1rem
 		}
+
+		.hide {
+			background-color: #fff;
+			color: red;
+			display: none;
+			right: 0;
+			padding: 0.5rem;
+			position:absolute;
+		}
+
+		.bar2d:hover+.hide {
+			display: block;
+		}
+
+		.bar2d:hover {
+			padding: 1rem 0 0 1rem;
+			background-color: blue;
+		}
 	</style>
 
 </head>
@@ -72,19 +90,23 @@
 
 			<p>
 				<label title="Use the cursor keys to speed through the years!">Select a year to display the indemnities:
-
 					<select id=selYear onchange=JFConParseCsv(this.selectedIndex) class=select-resize size=10></select>
 				</label>
 			</p>
 
 			<p>
-				<label title="Slide the little box left and right!"> Scale of indicator bars: <output
+				<label title="Slide the little box left and right!"> Scale bar height: $$ per county <output
 						id=outInp>50</output>
 					<input [ type=range ] id=rngScale oninput=JFConParseCsv(selYear.selectIndex);outInp.value=value;>
 				</label>
 			</p>
 
-			<div style=font-size:80%; >
+			<p>
+				<label title="Slide the little box left and right!"> Scale bar width: $$ per acre<output id=outWidth>50</output>
+					<input [ type=range ] id=rngScaleWidth oninput=JFConParseCsv(selYear.selectIndex);outWidth.value=value;>
+				</label>
+			</p>
+			<div style=font-size:80%;>
 				Things you can do:<br>
 				<ul>
 					<li>Touch a bar to view its details</li>
@@ -106,7 +128,7 @@
 	</details>
 
 
-	<main id=main hidden >
+	<main id=main hidden>
 
 		<div id="divMainContent"></div>
 
