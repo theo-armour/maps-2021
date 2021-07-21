@@ -26,9 +26,9 @@ function init () {
 	selYear.innerHTML = "<option>Total ( 1/10 scale of other)</option>";
 
 
-	for ( let i = 0; i < 39; i++ ) {
+	for ( let i = 0; i < 42; i++ ) {
 
-		selYear.innerHTML += `<option>${ 2017 - i }</option>`;
+		selYear.innerHTML += `<option>${ 2020 - i }</option>`;
 
 	}
 
@@ -105,7 +105,7 @@ function JFConParseCsv ( index = 1) {
 
 	scale = scale * rngScale.value / 50;
 
-	const barData = JFC.json.map( line => [ scale * line[ 45 - index ], +line[ 3 ], +line[ 4 ] ] );
+	const barData = JFC.json.map( line => [ scale * line[ 48 - index ], +line[ 3 ], +line[ 4 ] ] );
 	//console.log( "barData", barData );
 
 	const mesh = GLC.getPoints( barData )
@@ -122,29 +122,30 @@ RAY.getHtm = function ( intersected ) {
 	//console.log( "main intersected", intersected.instanceId );
 
 	const county = JFC.json[ intersected.instanceId ];
-	console.log( "county", county);
+	//console.log( "county", county);
 
 	const htm = `
 	<div>
 		county: <span class=feature>
 		<a href="https://www.google.com/search?q=${ county[ 0 ] }+county+${ county[ 1 ] }" title="Click to google it">${ county[ 0 ]}</a></span><br>
-		state: <span class=feature >${ county[ 1 ]}</span><br>
-		population: <span class=feature>${( +county[ 5 ] ).toLocaleString() }</span></br>
-		year: <span class=feature >${ 2018 - selYear.selectedIndex }</span><br>
-		indemnity: <span class=feature > $${ ( +county[ 44 - selYear.selectedIndex ] ) } million</span><br>
-		total (1979-2017): <span class=feature>$${( +county[ 45 ] ).toLocaleString() }</span></br>
+		state: <span class=feature >${ county[ 1 ] }</span><br>
 		fips: <span class=feature title="Click to google it"><a href="https://www.google.com/search?q=FIPS+county+${ county[ 2 ] }" target="_blank">${ county[ 2 ]}</a></span><br>
+		population: <span class=feature>${( +county[ 5 ] ).toLocaleString() }</span></br>
+		crop land: <span class=feature >${ ( +county[ 49 ] ).toLocaleString() }</span><br>
+		total (1979-2020): <span class=feature>$${( +county[ 48 ] ).toLocaleString() }</span></br>
+		year: <span class=feature >${ 2021 - selYear.selectedIndex }</span><br>
+		indemnity: <span class=feature > $${ ( +county[ 47 - selYear.selectedIndex ] ) } million</span><br>
 	</div>
 	<div>
 	<span style=color:#000;font-size:90%;> Indemnity by year</span>
-	${ getBars2D( county.slice( 6, 44 ) ) }</div>`;
+	${ getBars2D( county.slice( 6, 44 ), +county[ 49 ] ) }</div>`;
 
 	return htm;
 
 };
 
 
-function getBars2D ( arr ) {
+function getBars2D ( arr, acres ) {
 
 	arr.reverse();
 
@@ -154,7 +155,7 @@ function getBars2D ( arr ) {
 
 	const bars = arr.map( ( item, index ) =>
 		`<div style="background-color: cyan; color: black; margin-top:1px; height:1ch; width:${ scale * item }%;"
-			title="year: ${ 2017 - index } indemnity : $${ item.toLocaleString() }">&nbsp;</div>`
+			title="year: ${ 2020 - index } indemnity : $${ item.toLocaleString() } $/acre: ${ ( 1000000 * item / acres ).toLocaleString() }">&nbsp;</div>`
 	).join( "" );
 
 	//ht = DMTdivContainer.clientHeight - 00 + "px";
