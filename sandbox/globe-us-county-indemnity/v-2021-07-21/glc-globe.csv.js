@@ -35,9 +35,9 @@ GLC.getPoints = function ( data = JFC.json ) {
 		//console.log( "bar", bar );
 		//let height = isNaN( Number( bar[ 0 ] ) ) ? 1000 : Number( bar[ 0 ] );
 		//height = height < 1000 ? 1000 : height;
-		height = bar[ 0 ]; // 0.005 * Math.sqrt( height );
+		height = 0.5 * bar[ 0 ]; // 0.005 * Math.sqrt( height );
 		//console.log( "height", height );
-		width = bar[ 1 ];
+		width = 0.5 * bar[ 1 ];
 		//width = width < 1 ? 1 : width;
 
 		const matrix = getMatrixComposed( { radius: 50, latitude: + bar[ 2 ], longitude: + bar[ 3 ],
