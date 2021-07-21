@@ -57,6 +57,8 @@ Demographics
 
 * https://en.wikipedia.org/wiki/GeoJSON
 * https://en.wikipedia.org/wiki/List_of_United_States_FIPS_codes_by_county
+* https://earthengine.google.com/
+* https://openetdata.org/
 
 USDA
 
@@ -68,6 +70,12 @@ USDA
 ### USDA
 
 * https://www.rma.usda.gov/
+
+NASS
+
+* https://www.nass.usda.gov/index.php
+* https://www.nass.usda.gov/Research_and_Science/
+* https://www.nass.usda.gov/Research_and_Science/Cropland/Release/
 * https://quickstats.nass.usda.gov/
 
 
