@@ -57,7 +57,7 @@ function init () {
 	GJS.requestFile( urlGeoJson, GJS.onLoadGeoJson );
 
 
-	JFC.url = "https://theo-armour.github.io/maps-2021/data/soil-carbon-coalition/indemnity-geodata.csv";
+	JFC.url = "https://theo-armour.github.io/maps-2021/data/soil-carbon-coalition/indemnity-geodata-2021-07-21.csv";
 
 	JFC.requestFile( JFC.url, JFC.onLoadCsv, JFConParseCsv );
 
