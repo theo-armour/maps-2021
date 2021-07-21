@@ -41,14 +41,47 @@ This is a first pass at displaying the data. Further revisions might add more da
 
 ## Links of Interest
 
-From Peter Donovan
+### Insurance References
+
+Wikipedia
+
+* https://en.wikipedia.org/wiki/Crop_insurance
+
+> Crop insurance is purchased by agricultural producers, and subsidized by the federal government, to protect against either the loss of their crops due to natural disasters, such as hail, drought, and floods, or the loss of revenue due to declines in the prices of agricultural commodities. The two general categories of crop insurance are called crop-yield insurance and crop-revenue insurance. On average, the federal government subsidizes 62 percent of the premium.
+
+* https://en.wikipedia.org/wiki/Group_Risk_Protection
+* https://en.wikipedia.org/wiki/Group_Risk_Income_Protection
+* https://en.wikipedia.org/wiki/Weather_insurance
+
+Demographics
+
+* https://en.wikipedia.org/wiki/GeoJSON
+* https://en.wikipedia.org/wiki/List_of_United_States_FIPS_codes_by_county
+
+USDA
+
+* https://en.wikipedia.org/wiki/United_States_Department_of_Agriculture
+* https://en.wikipedia.org/wiki/Risk_Management_Agency
+* https://en.wikipedia.org/wiki/Federal_Crop_Insurance_Corporation
+
+
+### USDA
+
+* https://www.rma.usda.gov/
+* https://quickstats.nass.usda.gov/
+
+
+### Soil Carbon Coalition
 
 * https://soilcarboncoalition.org/
 * https://soilcarboncoalition.org/html/RMA_indemnities_1979_2017.html
 * https://soilcarboncoalition.org/length-green-1/
+* https://soilhealth.app/
 * https://soilhealth.app/RMG-Montana/maps/1
 * https://github.com/Soil-Carbon-Coalition/soilhealth.production
-* https://soilhealth.app/
+* https://atlasbiowork.com/
+* https://soilcarboncoalition.org/atlasbiowork/
+	* a framework or scaffold for a shared intelligence or user interface on landscape function
 
 ## Change Log
 
