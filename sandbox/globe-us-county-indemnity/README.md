@@ -25,8 +25,12 @@ A globe is a useful reminder that the US is just a small part of the earth and t
 
 This is a first pass at displaying the data. Further revisions might add more data
 
+* $$ per acre as colors with legend
+* Width of bar: total acres
 * Legends and colors developed in more detail
 * Rainfall or other weather difference with moving average is indicated
+* Add slider bar for years
+* Add functions that look for and report interesting data points
 * Continue investigation into data sources
 * Current year color indicates the difference with a moving averages of the data
 * Crop types and acres of crop areas are indicated
@@ -67,9 +71,10 @@ USDA
 * https://en.wikipedia.org/wiki/Federal_Crop_Insurance_Corporation
 
 
-### USDA
+### USDA RMA
 
 * https://www.rma.usda.gov/
+* https://ftp.rma.usda.gov/
 
 NASS
 
@@ -95,10 +100,13 @@ NASS
 
 ### 2021-07-21
 
+Data
 * New data for 2018-2020 added
 * Cropland per county data added
 * New combined csv with indemnity plus lat, lon & pop created
 * Arable acres per county is added to data set; indemnity per acre is displayed
+
+3D
 * Bars set to 12 sides - up from five
 
 Menu
@@ -112,6 +120,9 @@ Popup
 * Has instant popup
 * Hover effects added
 * Adds $ per acre
+
+Readme
+* links added
 
 ### 2021-07-14
 
