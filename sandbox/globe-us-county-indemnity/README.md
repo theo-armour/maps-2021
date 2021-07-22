@@ -26,6 +26,7 @@ A globe is a useful reminder that the US is just a small part of the earth and t
 This is a first pass at displaying the data. Further revisions might add more data
 
 * $$ per acre as colors with legend
+* Percent of normal precipitation, sunlight temperature, CO2, etc hours per year per county
 * Width of bar: total acres
 * Legends and colors developed in more detail
 * Rainfall or other weather difference with moving average is indicated
