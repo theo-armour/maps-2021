@@ -103,7 +103,9 @@ NASS
 
 * Width of bar now indicate number of cropland acres
 * Add: color of bar indicates indemnity per acre
-* Stert building info popup - very primitive, user experience  not good
+* Start building info popup - very primitive, user experience not good
+* Update menu text
+
 ### 2021-07-21
 
 Data

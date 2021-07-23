@@ -213,7 +213,7 @@ RAY.getHtm = function ( intersected ) {
 	</div>
 	<div>
 	<span style=color:#000;font-size:90%;> Indemnity by year</span>
-	${ getBars2D( county.slice( 6, 48 ), +county[ 49 ] ) }</div>`;
+	${ getBars2D( county.slice( 6, 47 ), +county[ 49 ] ) }</div>`;
 
 	return htm;
 
