@@ -25,12 +25,10 @@ A globe is a useful reminder that the US is just a small part of the earth and t
 
 This is a first pass at displaying the data. Further revisions might add more data
 
-* $$ per acre as colors with legend
+* Add slider bar for years; and animation
 * Percent of normal precipitation, sunlight temperature, CO2, etc hours per year per county
-* Width of bar: total acres
 * Legends and colors developed in more detail
 * Rainfall or other weather difference with moving average is indicated
-* Add slider bar for years
 * Add functions that look for and report interesting data points
 * Continue investigation into data sources
 * Current year color indicates the difference with a moving averages of the data
@@ -42,7 +40,9 @@ This is a first pass at displaying the data. Further revisions might add more da
 
 ## Issues
 
+* 2021-07-22 ~ The bars in the popup seem to have an off by one error
 * 2021-07-21 ~ menu width has issues on tablets?
+
 
 ## Links of Interest
 
@@ -105,6 +105,11 @@ NASS
 * Add: color of bar indicates indemnity per acre
 * Start building info popup - very primitive, user experience not good
 * Update menu text
+
+Done
+
+* $$ per acre as colors with legend
+* Width of bar: total acres
 
 ### 2021-07-21
 
