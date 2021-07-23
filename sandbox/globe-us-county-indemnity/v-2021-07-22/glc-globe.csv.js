@@ -22,11 +22,11 @@ GLC.init = function () {
 
 GLC.getPoints = function ( data = JFC.json ) {
 
-	let geometry = new THREE.CylinderBufferGeometry( 0.3, 0.1, 1, 12, 1, true );
+	let geometry = new THREE.CylinderBufferGeometry( 0.3, 0.1, 1, 12, 1, false );
 	geometry.applyMatrix4( new THREE.Matrix4().makeRotationX( 0.5 * Math.PI ) );
 	geometry.applyMatrix4( new THREE.Matrix4().makeScale( -1, 1, -1 ) );
 
-	const material = new THREE.MeshStandardMaterial( { color: 0x99ffff, side: 2 } );
+	const material = new THREE.MeshStandardMaterial( { roughness: 0.1, side: 2 } );
 	const mesh = new THREE.InstancedMesh( geometry, material, data.length );
 
 	for ( let i = 0; i < data.length; i ++ ) {
@@ -35,10 +35,10 @@ GLC.getPoints = function ( data = JFC.json ) {
 		//console.log( "bar", bar );
 		//let height = isNaN( Number( bar[ 0 ] ) ) ? 1000 : Number( bar[ 0 ] );
 		//height = height < 1000 ? 1000 : height;
-		height = 0.5 * bar[ 0 ]; // 0.005 * Math.sqrt( height );
+		height = 0.5 * bar[ 0 ] || 0.001; // 0.005 * Math.sqrt( height );
 		//console.log( "height", height );
 		width = 0.5 * bar[ 1 ];
-		//width = width < 1 ? 1 : width;
+		width = width < 0.2 ? 0.2 : width;
 		//console.log( "width", width );
 
 		const matrix = getMatrixComposed( { radius: 50, latitude: + bar[ 3 ], longitude: + bar[ 4 ],

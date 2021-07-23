@@ -17,6 +17,27 @@ const COR = {
 };
 
 
+
+function addLights() {
+	//THR.scene.add( new THREE.AmbientLight( 0x404040 ) );
+	THR.scene.add( new THREE.AmbientLight( 0x888888) );
+
+	const pointLight = new THREE.PointLight( 0xffffff, 0.5 );
+	pointLight.position.copy( THR.camera.position );
+	//pointLight.shadow.radius = 2;
+	//pointLight.castShadow = true;
+	THR.camera.add( pointLight );
+
+	lightDirectional = new THREE.DirectionalLight( 0xdffffff, 0.5 );
+	lightDirectional.position.set( -100, -200, -00 );
+	// lightDirectional.shadow.mapSize.width = 1024;
+	// lightDirectional.shadow.mapSize.height = 1024;
+
+	THR.scene.add( lightDirectional );
+
+	THR.lightDirectional = lightDirectional;
+};
+
 function init () {
 
 	MNU.init();
@@ -40,7 +61,7 @@ function init () {
 
 	THR.animate();
 
-	THR.addLights();
+	addLights();
 
 	THR.camera.position.set( -20, -65, 60 );
 
@@ -107,9 +128,61 @@ function JFConParseCsv ( index = 1) {
 
 	let scaleWidth = 1 * rngScaleWidth.value / 50
 
-	const barData = JFC.json.map( line => [ scale * line[ 48 - index ], scaleWidth * 0.0000015 * line[ 49 ], new THREE.Color( Math.random() * 0xffffff ) , +line[ 3 ], +line[ 4 ] ] );
+	const arrIdemnities = JFC.json.map( line => {
+
+		//console.log( "index", index, "line[ 48 - index ] ", line[ 48 - index ], line  );
+
+		idem = 1000000 * line[ 48 - index ] || 0;
+
+		if ( line[ 48 - index ]  === "" ) {
+
+			//console.log( "idem", idem );
+
+			return 0
+		}
+		//if ( isNaN( idem ) ) console.log( "isnan line ", line );
+
+		//if ( isNaN( + line[ 49 ]  ) ) console.log( "idem", idem, "isnan line ", line );
+
+		if ( idem === 0 || !line[ 49 ] || line[ 49 ] === 0 || line[ 49 ] === "0" || isNaN( + line[ 49 ] ) ) {
+
+			//console.log( "bbbb", idem, line[ 49 ] );
+
+			return 0
+		}
+
+		acre = + line[ 49 ];
+
+		pay = idem / acre;
+
+		//if ( pay > 10000 ) console.log( "pay linw", line, idem, acre, pay );
+
+		return pay;
+
+	} )
+
+	maxIdemn = Math.max( ...arrIdemnities );
+
+	console.log( "max1", maxIdemn );
+
+	arrColor = arrIdemnities.map( idem => {
+
+		let col = new THREE.Color( idem >= 100 || idem > 0.5 * maxIdemn ? "red" : "orange" );
+		col = new THREE.Color( idem < 50 && idem >= 10 ? "green" : col );
+		col = new THREE.Color( idem < 10 && idem >= 1 ? "blue" : col );
+		col = new THREE.Color( idem < 1 && idem > 0 ? "cyan" : col );
+		col = new THREE.Color( idem <= 0 ? "white" : col );
+
+		//if ( !num ) console.log( "col", num, idem );
+		//col = new THREE.Color( "rgb" + colors[ Math.floor( 10 * idem / maxIdemn ) ] );
+
+		return col;
+	} );
+	//console.log( "arrColor", arrColor );
+
+	const barData = JFC.json.map( ( line, i ) => [ scale * line[ 48 - index ], scaleWidth * 0.0000015 * line[ 49 ], arrColor[ i ] , +line[ 3 ], +line[ 4 ] ] );
 	//console.log( "barData", barData );
-//Math.log( 1000000 * line[ 48 - index ] / line[ 49 ] )
+	//Math.log( 1000000 * line[ 48 - index ] / line[ 49 ] )
 	const meshInstanced = GLC.getPoints( barData )
 
 	GLC.group.add( meshInstanced );

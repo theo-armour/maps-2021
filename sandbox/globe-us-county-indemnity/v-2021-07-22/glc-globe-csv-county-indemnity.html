@@ -45,6 +45,23 @@
 			padding: 1rem 0 0 1rem;
 			background-color: blue;
 		}
+
+		.hide2 {
+			background-color: #fff;
+			color: red;
+			display: none;
+			right: 0;
+			/* padding: 0.5rem;
+			position:absolute; */
+		}
+
+		.infoBit {
+
+			background-color: #ddd;
+		}
+		.infoBit:hover+.hide2 {
+			display: block;
+		}
 	</style>
 
 </head>
@@ -82,7 +99,8 @@
 
 			<p style=font-size:80%;>
 				Height of bar = size of indemnity<br>
-				Width of bar = indemnity per acre<br>
+				Width of bar = acres of cropland<br>
+				Color of bar = Indemnity per acre<br>
 				Vision+source: <a href="https://soilcarboncoalition.org/html/RMA_indemnities_1979_2017.html"
 					target="_blank">soilcarboncoalition.org</a>
 			</p>
@@ -97,12 +115,21 @@
 					<input [ type=range ] id=rngScale oninput=JFConParseCsv(selYear.selectIndex);outInp.value=value;>
 				</label>
 
-				<label title="Slide the little box left and right!"> Scale bar width: $$ per acre <output id=outWidth>50</output>
+				<label title="Slide the little box left and right!"> Scale bar width: cropland acres <output id=outWidth>50</output>
 					<input [ type=range ] id=rngScaleWidth oninput=JFConParseCsv(selYear.selectIndex);outWidth.value=value;>
 				</label>
 			</p>
-			<div style=font-size:75%;>
-				Things you can do:<br>
+
+			Color legend for indemnity per acre
+			<div>Red = $100 or more</div>
+			<div>yellow = $50 or more</div>
+			<div>green = 10$ or more</div>
+			<div>blue = $1 or more</div>
+			<div>cyan = $0.01 or more</div>
+			<div>white = $0</div>
+			<div class=infoBit >Things you can do</div>
+			<div class=hide2>
+
 				<ul>
 					<li>Touch a bar to view its details</li>
 					<li>In popup: click county or fips to Google</li>
@@ -113,6 +140,8 @@
 					<li>Reset page = click title at menu top</li>
 				</ul>
 			</div>
+
+
 
 			<div id=CORdivStats></div>
 
