@@ -65,7 +65,7 @@ Demographics
 * https://earthengine.google.com/
 * https://openetdata.org/
 
-USDA
+## USDA
 
 * https://en.wikipedia.org/wiki/United_States_Department_of_Agriculture
 * https://en.wikipedia.org/wiki/Risk_Management_Agency
@@ -76,8 +76,10 @@ USDA
 
 * https://www.rma.usda.gov/
 * https://ftp.rma.usda.gov/
+* https://www.rma.usda.gov/en/Information-Tools/Summary-of-Business/Cause-of-Loss
+https://www.rma.usda.gov/Information-Tools/Summary-of-Business/State-County-Crop-Summary-of-Business
 
-NASS
+### USDA NASS
 
 * https://www.nass.usda.gov/index.php
 * https://www.nass.usda.gov/Research_and_Science/
