@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0" />
-	<meta name="description" content="">
+	<meta name="description" content="Examine USDA RMA Statistics">
 	<meta name="date" content="2021-07-30">
 	<title></title>
 	<style>
@@ -21,7 +21,7 @@
 	<script src="foz-file-open-zip.js"></script>
 
 	<h1>
-		<a href="https://github.com/pushme-pullyou/tootoo-2021/tree/master/foz-file-open-zip/" target="_blank"
+		<a href="https://github.com/theo-armour/maps-2021/blob/main/sandbox/rma-stats/README.md" target="_blank"
 			title="source code on GitHub"><img
 				src=https://pushme-pullyou.github.io/tootoo-2021/lib/assets/icons/mark-github.svg></a>
 		<a href="" title="Click this menu title to reset the model">
@@ -31,14 +31,9 @@
 	</h1>
 
 	<div>
-		<select id=selYear onclick=requestFile(); size=5></select>
+		<select id=selYear onclick=requestFile(); size=5 style=vertical-align:top></select>
 
-	<select id=selElement size=10></select></div>
-	<div>
-		<button onclick=listItems(6);>list crops</button>
-
-		<button onclick=listItems(12);>list perils</button>
-	</div>
+		<select id=selElement oninput=listItems(this.selectedIndex); size=10></select>
 	</div>
 
 	<div id=FOZdivFileOpenZip></div>
@@ -47,41 +42,38 @@
 
 	<script>
 
-let elements;
-
-
-	elements = [
-		[ "Commodity Year Identifier", "The identifier that represents the year in which the crop commodity is normally harvested and indicates the policy year for which coverage was provided" ],
-		[ "State Code", "The FIPS code that denotes the State in which the insured farm is located" ],
-		[ "State Abbreviation", "USPS state abbreviation" ],
-		[ "County Code", "The FIPS code that denotes the County in which the insured farm is located" ],
-		[ "County Name", "Name of the county" ],
-		[ "Commodity Code", "The Risk Management Agency (RMA) code that denotes the crop/commodity for which the policy is issued." ],
-		[ "Commodity Name", "Name of the crop/commodity" ],
-		[ "Insurance Plan Code", "Code that denotes the typ of insurance coverage is selected for the insured crop (e.g.APH, Revenue, Dollar, etc.)" ],
-		[ "Insurance Plan Name Abbreviation", "Abbreviation of the Insurance Plan Name" ],
-		[ "Average Category", "Code that identifies the category of coverage elected :A = Buyup ; C = CAT ; E = Existing Coverage Policy ; L = Limited Coverage" ],
-		[ "Stage Code", "See Stage Code Listing" ],
-		[ "Cause of Loss Code", "The RMA code tht identifies the peril that caused the loss on the crop" ],
-		[ "Cause of Loss Description", "Description of the cause of loss." ],
-		[ "Month of Loss", "Month when the loss occurred" ],
-		[ "Month of Loss Name", "Name of the month when te loss occurred" ],
-		[ "Year of Loss", "Year the loss occurred" ],
-		[ "Policies Earning Premium", "Count of th number of crop policies with premium NOTE : Not available for years prior to 1989." ],
-		[ "Policies Indemnified", "Count of the number of crop policies with a reported loss" ],
-		[ "Net Planted Acres", "Number of acres planted to the crop after the insured’sshare is applied." ],
-		[ "Net Endorsed Acres", "Number of acres insured under an endorsement (e.g. SCO, STAX, Margin Protction)" ],
-		[ "Liability", "The maximum dollar amount of insurance for the crop" ],
-		[ "Total Premium", "Premium before application of any subsidies. In general, the base premium rates times liability (Also called the base premium)" ],
-		[ "Producer Paid Premium", "Premium paid by the producer" ],
-		[ "Subsidy", "Amount of subsidized premium" ],
-		[ "State/Private Subsidy", "Subsidy provided by a state or private entity" ],
-		[ "Additional Subsidy", "An additional subsidy from a program or other prcoess. 2021 Additional subsidy represents Pandemic Cover Crop Program amount." ],
-		[ "EFA Premium Discount", "" ],
-		[ "Net Determined Acres", "Number of acres loss due to damage after the insured’s share is applied" ],
-		[ "Indemnity Amount", "The total amount of the loss for the designated peril." ],
-		[ "Loss Ratio", "Calculated: Indemnity / Total Premium." ]
-	];
+		const elements = [
+			[ "Commodity Year Identifier", "The identifier that represents the year in which the crop commodity is normally harvested and indicates the policy year for which coverage was provided" ],
+			[ "State Code", "The FIPS code that denotes the State in which the insured farm is located" ],
+			[ "State Abbreviation", "USPS state abbreviation" ],
+			[ "County Code", "The FIPS code that denotes the County in which the insured farm is located" ],
+			[ "County Name", "Name of the county" ],
+			[ "Commodity Code", "The Risk Management Agency (RMA) code that denotes the crop/commodity for which the policy is issued." ],
+			[ "Commodity Name", "Name of the crop/commodity" ],
+			[ "Insurance Plan Code", "Code that denotes the typ of insurance coverage is selected for the insured crop (e.g.APH, Revenue, Dollar, etc.)" ],
+			[ "Insurance Plan Name Abbreviation", "Abbreviation of the Insurance Plan Name" ],
+			[ "Average Category", "Code that identifies the category of coverage elected :A = Buyup ; C = CAT ; E = Existing Coverage Policy ; L = Limited Coverage" ],
+			[ "Stage Code", "See Stage Code Listing" ],
+			[ "Cause of Loss Code", "The RMA code tht identifies the peril that caused the loss on the crop" ],
+			[ "Cause of Loss Description", "Description of the cause of loss." ],
+			[ "Month of Loss", "Month when the loss occurred" ],
+			[ "Month of Loss Name", "Name of the month when te loss occurred" ],
+			[ "Year of Loss", "Year the loss occurred" ],
+			[ "Policies Earning Premium", "Count of th number of crop policies with premium NOTE : Not available for years prior to 1989." ],
+			[ "Policies Indemnified", "Count of the number of crop policies with a reported loss" ],
+			[ "Net Planted Acres", "Number of acres planted to the crop after the insured’sshare is applied." ],
+			[ "Net Endorsed Acres", "Number of acres insured under an endorsement (e.g. SCO, STAX, Margin Protction)" ],
+			[ "Liability", "The maximum dollar amount of insurance for the crop" ],
+			[ "Total Premium", "Premium before application of any subsidies. In general, the base premium rates times liability (Also called the base premium)" ],
+			[ "Producer Paid Premium", "Premium paid by the producer" ],
+			[ "Subsidy", "Amount of subsidized premium" ],
+			[ "State/Private Subsidy", "Subsidy provided by a state or private entity" ],
+			[ "Additional Subsidy", "An additional subsidy from a program or other prcoess. 2021 Additional subsidy represents Pandemic Cover Crop Program amount." ],
+			[ "EFA Premium Discount", "" ],
+			[ "Net Determined Acres", "Number of acres loss due to damage after the insured’s share is applied" ],
+			[ "Indemnity Amount", "The total amount of the loss for the designated peril." ],
+			[ "Loss Ratio", "Calculated: Indemnity / Total Premium." ]
+		];
 
 		init();
 
@@ -91,14 +83,13 @@ let elements;
 
 			spnVersion.innerHTML = document.head.querySelector( "[ name=date ]" ).content;
 
-
-
 			const htm = [ ...Array( 5 ) ].map( ( item, i ) => `<option>${ 2020 - i }</option>` )
 			selYear.innerHTML = htm;
 			selYear.selectedIndex = 0;
 
-			const htm2 = [ ...Array( elements.length) ].map( ( item, i ) => `<option>${ elements[ i ][ 0 ] }</option>` )
+			const htm2 = [ ...Array( elements.length ) ].map( ( item, i ) => `<option title="${ elements[ i ][ 1 ] }" >${ elements[ i ][ 0 ] }</option>` )
 			selElement.innerHTML = htm2;
+
 			requestFile();
 
 		}
@@ -112,6 +103,8 @@ let elements;
 			//url = "https://cdn.jsdelivr.net/gh/pushme-pullyou/tootoo-2021@master/README.md";
 
 			const urlCORS = ""; //https://cors-anywhere.herokuapp.com/";
+
+			selElement.disabled = true;
 
 			xhr = new XMLHttpRequest();
 			xhr.open( "GET", urlCORS + url, true );
@@ -143,35 +136,84 @@ let elements;
 
 
 
+		// https://stackoverflow.com/questions/1669190/find-the-min-max-element-of-an-array-in-javascript
+
+		function arrayMax( arr ) {
+			return arr.reduce( function ( p, v ) {
+				return ( p > v ? p : v );
+			} );
+		}
+
+		function arrayMin( arr ) {
+			return arr.reduce( function ( p, v ) {
+				return ( p < v ? p : v );
+			} );
+		}
+
+		function average( array ) {return array.reduce( ( a, b ) => a + b ) / array.length; }
+
+
+
 		function listItems( index ) { // detailed
 
-			const crops = [];
+			const items = [];
 			const counts = [];
+
+			const idx = selElement.selectedIndex;
+
+			if ( idx > 17 ) {
+
+				FOZ.lines.forEach( ( item ) => {
+
+					items.push( + item[ index ] );
+
+				} );
+
+				//console.log( "items", items );
+
+				const reducer = ( accumulator, curr ) => accumulator + curr;
+				const sum = items.reduce( reducer );
+
+				divContent.innerText = `
+${ elements[ idx ].join( "\n" ) } \n
+
+items: ${ items.length.toLocaleString() }\n
+sum: ${ sum.toLocaleString() }\n
+max: ${ arrayMax( items ).toLocaleString() }\n
+min: ${ arrayMin( items ).toLocaleString() }\n
+avg: ${ average( items ).toLocaleString() }\n
+`;
+
+				return;
+
+			}
 
 			FOZ.lines.forEach( ( line ) => {
 
 				const item = line[ index ];
 
-				if ( !crops.includes( item ) ) {
+				if ( !items.includes( item ) ) {
 
-					crops.push( item );
+					items.push( item );
 					counts.push( 1 );
 
 				} else {
 
-					counts[ crops.indexOf( item ) ]++;
+					counts[ items.indexOf( item ) ]++;
 
 				}
 
 			} );
 
-			const text = crops.map( ( crop, index ) => crop + " " + counts[ index ].toLocaleString() );
-			divContent.innerText = text.join( "\n" );
+			const text = items.map( ( item, index ) => item + " - " + counts[ index ].toLocaleString() );
+			divContent.innerText = `
+${ elements[ idx ].join( "\n" ) }\n
+${ text.join( "\n" ) }`;
+
 		}
 
+
 	</script>
-
-
 </body>
 
 </html>
