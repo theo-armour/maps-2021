@@ -12,6 +12,12 @@ _"RMA Stats" in a resizable window. One finger to rotate. Two to zoom._
 
 ## Concept
 
+Load stats from USDA RMA
+
+* https://www.rma.usda.gov/
+* https://ftp.rma.usda.gov/
+* https://www.rma.usda.gov/en/Information-Tools/Summary-of-Business/Cause-of-Loss
+* https://www.rma.usda.gov/Information-Tools/Summary-of-Business/State-County-Crop-Summary-of-Business
 
 ### Names
 
@@ -62,9 +68,10 @@ elements = [
 ## Change Log
 
 
-### 123
+### 2021-07-30
 
-* First commit
+* Dara colection beginning to work
+* First commit this rwad me
 
 
 ***
