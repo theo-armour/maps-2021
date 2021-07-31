@@ -1,4 +1,4 @@
-# [![](https://theo-armour.github.io/maps-2021/lib/assets/icons/mark-github.svg )](https://github.com/theo-armour/maps-2021/tree/main/sandbox/rma-stats "Source code on GitHub" ) [Maps 2021]( https://theo-armour.github.io/maps-2021/ "Home page" ) / [RMA Stats Read Me]( https://theo-armour.github.io/maps-2021/#lib/sandbox/rma-stats/README.md)
+# [![](https://theo-armour.github.io/maps-2021/lib/assets/icons/mark-github.svg )](https://github.com/theo-armour/maps-2021/tree/main/sandbox/rma-stats "Source code on GitHub" ) [Maps 2021]( https://theo-armour.github.io/maps-2021/ "Home page" ) / [RMA Stats Read Me]( https://theo-armour.github.io/maps-2021/#sandbox/rma-stats/README.md)
 
 
 <!--@@@
