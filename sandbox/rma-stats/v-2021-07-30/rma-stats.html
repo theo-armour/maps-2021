@@ -46,11 +46,11 @@
 			[ "Commodity Year Identifier", "The identifier that represents the year in which the crop commodity is normally harvested and indicates the policy year for which coverage was provided" ],
 			[ "State Code", "The FIPS code that denotes the State in which the insured farm is located" ],
 			[ "State Abbreviation", "USPS state abbreviation" ],
-			[ "County Code", "The FIPS code that denotes the County in which the insured farm is located" ],
+			[ "County Code", "The FIPS code that denotes the county in which the insured farm is located" ],
 			[ "County Name", "Name of the county" ],
 			[ "Commodity Code", "The Risk Management Agency (RMA) code that denotes the crop/commodity for which the policy is issued." ],
 			[ "Commodity Name", "Name of the crop/commodity" ],
-			[ "Insurance Plan Code", "Code that denotes the typ of insurance coverage is selected for the insured crop (e.g.APH, Revenue, Dollar, etc.)" ],
+			[ "Insurance Plan Code", "Code that denotes the type of insurance coverage that is selected for the insured crop (e.g.APH, Revenue, Dollar, etc)" ],
 			[ "Insurance Plan Name Abbreviation", "Abbreviation of the Insurance Plan Name" ],
 			[ "Average Category", "Code that identifies the category of coverage elected :A = Buyup ; C = CAT ; E = Existing Coverage Policy ; L = Limited Coverage" ],
 			[ "Stage Code", "See Stage Code Listing" ],
@@ -207,7 +207,7 @@ avg: ${ average( items ).toLocaleString() }\n
 
 			const text = items.map( ( item, index ) => item + " - " + counts[ index ].toLocaleString() );
 			divContent.innerText = `
-${ elements[ idx ].join( "\n" ) }\n
+${ elements[ idx ].join( "\n" ) }  - followed by number of items in the category\n
 ${ text.join( "\n" ) }`;
 
 		}
