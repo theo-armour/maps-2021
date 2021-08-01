@@ -12,19 +12,29 @@ _"RMA Stats" in a resizable window. One finger to rotate. Two to zoom._
 
 ## Concept
 
-
-Load stats from USDA RMA
-
-* https://www.rma.usda.gov/
-* https://ftp.rma.usda.gov/
-* https://www.rma.usda.gov/Information-Tools/Summary-of-Business/State-County-Crop-Summary-of-Business
-
-This folder contains sample data files from here:
+This script loads, parses and displays sample data files from here:
 
 * https://www.rma.usda.gov/en/Information-Tools/Summary-of-Business/Cause-of-Loss
 
 ><b>Cause of Loss Historical Data Files</b>
 >Summarized participation information broken down by the causes of loss. Each link contains a ZIP file with compressed data containing pipe (|) delimited flat-files that can be imported into any standard spreadsheet and/or database for further analysis. Record description file located in each subfolder.
+
+At load time
+
+* Download RMA sample data files from GitHub Page server using XMLHttpRequest. Files are typically4MB ZIP files.
+* Decompress the files using [JSZip.js]( https://stuk.github.io/jszip/ ). Uncompressed files are typically 38 MB with over 125,000 lines of CSV-type data with 30 fields
+* Parse the data into an array of arrays in JSON format
+* Report file size, number of lines, time to load
+* Display the first 30 lines of records
+
+At run time, you can
+
+* Click on a list of years to load, parse and display its data ( repeat load time events for that year )
+Sample data files from here:
+* Click on a list of all the field headings to display the data for that field
+	* If the data is categorical (FIPs code or name of a state), find al the unique values and list their count
+	* if the data is tabular * number of acres or size of indemnity, list the sum, average, miniumum and maximum of all values
+* Click a button to view a list of all the counties showing county name, state, FIPs code, acres planted, total liability and total indemnity.
 
 ### Names
 
@@ -72,14 +82,20 @@ const elements = [
 ## To Do / Wish List
 
 * 2021-08-01 ~ Present data by states then county
-* 2021-08-01 ~ Use menu or display tag to show and hide data
+* 2021-08-01 ~ Use menu or display tag to show and hide data by state then county
 * 2021-08-01 ~ Identify major crops by country, state & county
 * 2021-08-01 ~ Identify major losses by country, state & county
+* 2021-08-01 ~ Help Idetify data that msy be viewed on a map
 
 ## Issues
 
 
 ## Links of Interest
+
+
+* https://www.rma.usda.gov/
+* https://ftp.rma.usda.gov/
+* https://www.rma.usda.gov/Information-Tools/Summary-of-Business/State-County-Crop-Summary-of-Business
 
 
 ## Change Log

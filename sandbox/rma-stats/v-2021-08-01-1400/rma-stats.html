@@ -47,7 +47,9 @@
 			</a>
 		</h1>
 		<p>
-			Examine the statistics of USDA Risk Management Agency Cause of Loss Historical <a href="https://www.rma.usda.gov/en/Information-Tools/Summary-of-Business/Cause-of-Loss" target="_blank">Data Files</a> as text
+			Examine the statistics of USDA Risk Management Agency Cause of Loss Historical <a
+				href="https://www.rma.usda.gov/en/Information-Tools/Summary-of-Business/Cause-of-Loss"
+				target="_blank">Data Files</a> as text
 		</p>
 
 		<p>
@@ -58,7 +60,9 @@
 			</label>
 		</p>
 
-		<div id=divFileOpenZip><p>&nbsp;</p></div>
+		<div id=divFileOpenZip>
+			<p>&nbsp;</p>
+		</div>
 
 		<p>
 			<label>
@@ -135,7 +139,7 @@
 
 			if ( !location.hash && location.protocol === "https:" ) {
 
-				window.history.pushState( "", "", "../");
+				window.history.pushState( "", "", "../" );
 
 			}
 
@@ -147,6 +151,7 @@
 
 			divContent.innerHTML = `<p>It takes a few seconds for the data file to load.</p>`;
 			const year = selYear.value;
+			url = `rma-samples.zip`
 			url = `https://theo-armour.github.io/maps-2021/data/usda-rma/colsom_${ year }.zip`
 			//url = "https://cdn.jsdelivr.net/gh/pushme-pullyou/tootoo-2021@master/README.md";
 
@@ -197,7 +202,7 @@
 
 					divContent.innerText = `
 First 30 of ${ lines.length.toLocaleString() } lines of RMA statistics: \n
-${ lines.slice( 0, 30 ).join( "\n" ) }`;
+${ lines.slice( 0, 1000 ).join( "\n" ) }`;
 
 				} );
 
@@ -321,11 +326,16 @@ ${ text.join( "\n" ) }`;
 						"name": line[ 4 ],
 						"state": line[ 2 ],
 						"fips": ( line[ 1 ] + line[ 3 ] ),
-						"acresPlanted": 0,
-						"liability": 0,
-						"indemnity": 0
+						"acresPlanted": + line[ 20 ],
+						"liability": + line[ 22 ],
+						"indemnity": + line[ 20 ],
+						"crops": [],
+						"cropAcres": [],
+						"cropIndemnities": [],
+						"lossCodes": []
 
 					} );
+
 
 				} else {
 
@@ -336,14 +346,36 @@ ${ text.join( "\n" ) }`;
 
 				}
 
+				const county = counties[ countyIndex.indexOf( name ) ];
+
+				if ( !county.crops.includes( line[ 6 ] ) ) {
+					county.crops.push( line[ 6 ] );
+					county.cropAcres.push( + line[ 20 ] );
+					county.cropIndemnities.push( + line[ 28 ] );
+				} else {
+					//crop = county.crop[ county.crop.indexOf( line[ 6 ] ) ];
+					county.cropAcres[ county.crops.indexOf( line[ 6 ] ) ] += + line[ 20 ];
+					county.cropIndemnities[ county.crops.indexOf( line[ 6 ] ) ] += + line[ 28 ];
+				}
+
+				if ( !county.lossCodes.includes( line[ 11 ] ) ) {
+
+					county.lossCodes.push( line[ 11 ] );
+
+				}
 			} );
 
 
+
 			divContent.innerText = counties.map( county =>
-				`${ county.name }, ${ county.state }, ${ county.fips },
-Acres planted: ${ county.acresPlanted.toLocaleString() },
-Total Liability: ${ county.liability.toLocaleString() },
-Total Indemnity: $${ county.indemnity.toLocaleString() },
+`${ county.name }, ${ county.state }, ${ county.fips }
+Acres planted: ${ county.acresPlanted.toLocaleString() }
+Total Liability: ${ county.liability.toLocaleString() }
+Total Indemnity: $${ county.indemnity.toLocaleString() }
+Crops: ${ county.crops.join( "; " ) }
+Crops acres: ${ county.cropAcres.map( item => item.toLocaleString() ).join( "; " ) }
+Crops Indemnities: $${ county.cropIndemnities.map( item => item.toLocaleString() ).join( "; $" ) }
+Loss Codes: ${ county.lossCodes.join( "; " ) }
 ` ).join( "\n" );
 
 		}
