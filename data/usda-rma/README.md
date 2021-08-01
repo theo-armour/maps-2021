@@ -16,7 +16,7 @@ Sample data files from here:
 
 * https://www.rma.usda.gov/en/Information-Tools/Summary-of-Business/Cause-of-Loss
 
->Cause of Loss Historical Data Files
+><b>Cause of Loss Historical Data Files</b>
 >Summarized participation information broken down by the causes of loss. Each link contains a ZIP file with compressed data containing pipe (|) delimited flat-files that can be imported into any standard spreadsheet and/or database for further analysis. Record description file located in each subfolder.
 
 ## To Do / Wish List
