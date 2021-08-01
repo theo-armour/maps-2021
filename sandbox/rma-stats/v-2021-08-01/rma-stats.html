@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0" />
-	<meta name="description" content="Examine USDA RMA Statistics as text">
+	<meta name="description" content="Examine USDA Risk Management Agency Statistics as text">
 	<meta name="date" content="2021-08-01">
 	<title></title>
 	<style>
@@ -46,18 +46,20 @@
 				<span id=spnVersion></span>
 			</a>
 		</h1>
-
+		<p>
+			Examine the statistics of USDA Risk Management Agency Cause of Loss Historical Data Files as text
+		</p>
 
 		<p>
 			<label>Select a year:<br>
 
-				<select id=selYear onclick=requestFile(); size=10></select>
+				<select id=selYear onclick=requestFile(); size=11></select>
 
 			</label>
 		</p>
-		<p>
-			<button onclick=getCountyData();>get county data</button>
-		</p>
+
+		<div id=divFileOpenZip><p>&nbsp;</p></div>
+
 		<p>
 			<label>
 				Select an element:<br>
@@ -67,7 +69,10 @@
 			</label>
 		</p>
 
-		<div id=divFileOpenZip></div>
+		<p>
+			<button onclick=getCountyData();>Display county data totals</button>
+		</p>
+
 
 	</nav>
 
@@ -119,7 +124,7 @@
 
 			spnVersion.innerHTML = document.head.querySelector( "[ name=date ]" ).content;
 
-			const htm = [ ...Array( 10 ) ].map( ( item, i ) => `<option>${ 2020 - i }</option>` )
+			const htm = [ ...Array( 11 ) ].map( ( item, i ) => `<option>${ 2020 - i }</option>` )
 			selYear.innerHTML = htm;
 			selYear.selectedIndex = 0;
 
@@ -175,10 +180,9 @@
 					divFileOpenZip.innerHTML = `
 <p>
 	Results<br>
-	<br>
-	bytes loaded: ${ text.length.toLocaleString() }<br>
-	time elapsed ${ ( performance.now() - timeStart ).toLocaleString() } ms<br>
-	file: ${ fileName }
+	Bytes loaded: ${ text.length.toLocaleString() }<br>
+	Time elapsed ${ ( performance.now() - timeStart ).toLocaleString() } ms<br>
+	File: ${ fileName }
 </p>`;
 
 					lines = text.split( /\r\n/ ).map( line => line.split( "|" ).map( item => item.trim() ) ).slice( 0, -1 );
@@ -302,7 +306,7 @@ ${ text.join( "\n" ) }`;
 
 				const name = line[ 4 ];
 
-				if ( !countyIndex.includes( name) ) {
+				if ( !countyIndex.includes( name ) ) {
 
 					countyIndex.push( name );
 					counties.push( {
@@ -328,7 +332,7 @@ ${ text.join( "\n" ) }`;
 
 
 			divContent.innerText = counties.map( county =>
-`${ county.name }, ${ county.state }, ${ county.fips },
+				`${ county.name }, ${ county.state }, ${ county.fips },
 Acres planted: ${ county.acresPlanted.toLocaleString() },
 Total Liability: ${ county.liability.toLocaleString() },
 Total Indemnity: $${ county.indemnity.toLocaleString() },
