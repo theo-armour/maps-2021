@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0" />
+	<meta name="description" content="Examine USDA RMA Statistics as text">
+	<meta name="date" content="2021-08-01">
+	<title></title>
+	<style>
+		body {
+			font: 100% monospace;
+		}
+
+		select {
+			width: 100%;
+		}
+
+		#navMenu {
+			border: 1px solid #888;
+			padding: 0.5rem;
+			width: 15rem;
+		}
+
+		#divContent {
+			position: absolute;
+			left: 18rem;
+			top: 0;
+
+		}
+	</style>
+</head>
+
+<body>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
+
+	<nav id=navMenu>
+
+		<h1>
+			<a href="https://github.com/theo-armour/maps-2021/blob/main/sandbox/rma-stats/README.md" target="_blank"
+				title="source code on GitHub"><img
+					src=https://pushme-pullyou.github.io/tootoo-2021/lib/assets/icons/mark-github.svg></a>
+			<a href="" title="Click this menu title to reset the model">
+				<span id=spnTitle></span>
+				<span id=spnVersion></span>
+			</a>
+		</h1>
+
+		<p>
+			<label>Select a year:<br>
+
+				<select id=selYear onclick=requestFile(); size=10 ></select>
+
+			</label>
+		</p>
+		<p>
+			<label>
+				Select an element:<br>
+
+				<select id=selElement oninput=listItems(this.selectedIndex); size=10></select>
+
+			</label>
+		</p>
+
+		<div id=divFileOpenZip></div>
+
+	</nav>
+
+	<div id="divContent">It takes a few seconds for the data file to load...</div>
+
+	<script>
+
+		const elements = [
+			[ "Commodity Year Identifier", "The identifier that represents the year in which the crop commodity is normally harvested and indicates the policy year for which coverage was provided" ],
+			[ "State Code", "The FIPS code that denotes the State in which the insured farm is located" ],
+			[ "State Abbreviation", "USPS state abbreviation" ],
+			[ "County Code", "The FIPS code that denotes the county in which the insured farm is located" ],
+			[ "County Name", "Name of the county" ],
+			[ "Commodity Code", "The Risk Management Agency (RMA) code that denotes the crop/commodity for which the policy is issued." ],
+			[ "Commodity Name", "Name of the crop/commodity" ],
+			[ "Insurance Plan Code", "Code that denotes the type of insurance coverage that is selected for the insured crop (e.g.APH, Revenue, Dollar, etc)" ],
+			[ "Insurance Plan Name Abbreviation", "Abbreviation of the Insurance Plan Name" ],
+			[ "Average Category", "Code that identifies the category of coverage elected :A = Buyup ; C = CAT ; E = Existing Coverage Policy ; L = Limited Coverage" ],
+			[ "Stage Code", "See Stage Code Listing" ],
+			[ "Cause of Loss Code", "The RMA code tht identifies the peril that caused the loss on the crop" ],
+			[ "Cause of Loss Description", "Description of the cause of loss." ],
+			[ "Month of Loss", "Month when the loss occurred" ],
+			[ "Month of Loss Name", "Name of the month when te loss occurred" ],
+			[ "Year of Loss", "Year the loss occurred" ],
+			[ "Policies Earning Premium", "Count of th number of crop policies with premium NOTE : Not available for years prior to 1989." ],
+			[ "Policies Indemnified", "Count of the number of crop policies with a reported loss" ],
+			[ "Net Planted Acres", "Number of acres planted to the crop after the insured’sshare is applied." ],
+			[ "Net Endorsed Acres", "Number of acres insured under an endorsement (e.g. SCO, STAX, Margin Protction)" ],
+			[ "Liability", "The maximum dollar amount of insurance for the crop" ],
+			[ "Total Premium", "Premium before application of any subsidies. In general, the base premium rates times liability (Also called the base premium)" ],
+			[ "Producer Paid Premium", "Premium paid by the producer" ],
+			[ "Subsidy", "Amount of subsidized premium" ],
+			[ "State/Private Subsidy", "Subsidy provided by a state or private entity" ],
+			[ "Additional Subsidy", "An additional subsidy from a program or other prcoess. 2021 Additional subsidy represents Pandemic Cover Crop Program amount." ],
+			[ "EFA Premium Discount", "" ],
+			[ "Net Determined Acres", "Number of acres loss due to damage after the insured’s share is applied" ],
+			[ "Indemnity Amount", "The total amount of the loss for the designated peril." ],
+			[ "Loss Ratio", "Calculated: Indemnity / Total Premium." ]
+		];
+
+		let lines;
+
+		init();
+
+		function init() {
+
+			spnTitle.innerHTML = document.title ? document.title : location.href.split( '/' ).pop().slice( 0, - 5 ).replace( /-/g, ' ' );
+
+			spnVersion.innerHTML = document.head.querySelector( "[ name=date ]" ).content;
+
+			const htm = [ ...Array( 10 ) ].map( ( item, i ) => `<option>${ 2020 - i }</option>` )
+			selYear.innerHTML = htm;
+			selYear.selectedIndex = 0;
+
+			const htm2 = [ ...Array( elements.length ) ].map( ( item, i ) => `<option title="${ elements[ i ][ 1 ] }" >${ elements[ i ][ 0 ] }</option>` )
+			selElement.innerHTML = htm2;
+
+			requestFile();
+
+		}
+
+
+
+		function requestFile( url = "https://example.com", callback = onLoad ) {
+
+			divContent.innerHTML = `<p>It takes a few seconds for the data file to load.</p>`;
+			const year = selYear.value;
+			url = `https://theo-armour.github.io/maps-2021/data/usda-rma/colsom_${ year }.zip`
+			//url = "https://cdn.jsdelivr.net/gh/pushme-pullyou/tootoo-2021@master/README.md";
+
+			const urlCORS = ""; //https://cors-anywhere.herokuapp.com/";
+
+			selElement.disabled = true;
+
+			xhr = new XMLHttpRequest();
+			xhr.open( "GET", urlCORS + url, true );
+			xhr.responseType = "blob";
+			xhr.onerror = ( xhr ) => console.log( "error:", xhr );
+			//xhr.onprogress = ( xhr ) => console.log( "bytes loaded:", xhr.loaded );
+			xhr.onload = ( xhr ) => callback( xhr.target.response );
+			xhr.send( null );
+
+		}
+
+
+
+		function onLoad( dataZip ) {
+
+			const timeStart = performance.now();
+			const zip = new JSZip();
+			const files = [];
+			let fileName;
+
+			zip.loadAsync( dataZip )
+
+				.then( zip => {
+
+					fileName = Object.keys( zip.files )[ 0 ];
+					return zip.file( fileName ).async( "string" );
+
+				} ).then( text => {
+
+					selElement.disabled = false;
+					divFileOpenZip.innerHTML = `
+<p>
+	Results<br>
+	<br>
+	bytes loaded: ${ text.length.toLocaleString() }<br>
+	time elapsed ${ ( performance.now() - timeStart ).toLocaleString() } ms<br>
+	file: ${ fileName }
+</p>`;
+
+					lines = text.split( /\r\n/ ).map( line => line.split( "|" ).map( item => item.trim() ) ).slice( 0, -1 );
+
+					divContent.innerText = `
+First 30 of ${ lines.length.toLocaleString() } lines of RMA statistics: \n
+${ lines.slice( 0, 30 ).join( "\n" ) }`;
+
+				} );
+
+		}
+
+
+		// simple
+		function listItems( index ) {
+
+			const items = [ ...new Set( lines.map( line => line[ index ] ) ) ];
+
+			divContent.innerText = items.join( "\n" );
+
+		}
+
+
+		// utils
+
+		// https://stackoverflow.com/questions/1669190/find-the-min-max-element-of-an-array-in-javascript
+
+		function arrayMax( arr ) {
+			return arr.reduce( function ( p, v ) {
+				return ( p > v ? p : v );
+			} );
+		}
+
+		function arrayMin( arr ) {
+			return arr.reduce( function ( p, v ) {
+				return ( p < v ? p : v );
+			} );
+		}
+
+		function arrayAverage( array ) {
+			return array.reduce( ( a, b ) => a + b ) / array.length;
+		}
+
+		function reducer( accumulator, curr ) { return accumulator + curr; }
+
+
+		//More nuanced view
+
+		function listItems( index ) { // detailed
+
+			let items = [];
+			const counts = [];
+			const idx = selElement.selectedIndex;
+
+			if ( idx > 17 ) {
+
+				const items = lines.map( item => + item[ index ] )
+
+				divContent.innerText = `
+${ elements[ idx ].join( "\n" ) } \n
+
+items: ${ items.length.toLocaleString() }\n
+sum: ${ items.reduce( reducer ).toLocaleString() }\n
+max: ${ arrayMax( items ).toLocaleString() }\n
+min: ${ arrayMin( items ).toLocaleString() }\n
+avg: ${ arrayAverage( items ).toLocaleString() }\n
+`;
+
+				return;
+
+			}
+
+			lines.forEach( ( line ) => {
+
+				const item = line[ index ];
+
+				if ( !items.includes( item ) ) {
+
+					items.push( item );
+					counts.push( 1 );
+
+				} else {
+
+					counts[ items.indexOf( item ) ]++;
+
+				}
+
+			} );
+
+			const text = items.map( ( item, index ) => item + " - " + counts[ index ].toLocaleString() );
+			divContent.innerText = `
+${ elements[ idx ].join( "\n" ) } - followed by number of items in the category\n
+${ text.join( "\n" ) }`;
+
+		}
+
+	</script>
+</body>
+
+</html>
