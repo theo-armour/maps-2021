@@ -106,6 +106,10 @@ const elements = [
 * Update readme
 * Add: Display county data totals
 
+14:00
+
+* 2021-08-01 ~ Identify major crops, crop acres, indemnities and loss codes by county
+
 ### 2021-07-30
 
 * Data collection beginning to work
