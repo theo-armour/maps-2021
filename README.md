@@ -8,7 +8,7 @@ _"US County Presidents Votes" in a resizable window. One finger to rotate. Two t
 
 ### Full Screen: [US County Presidents Vote]( https://theo-armour.github.io/maps-2021/sandbox/us-county-votes/ )
 
-
+<!--@@@
 <div class=iframe-resize ><iframe src=https://theo-armour.github.io/maps-2021/sandbox/globe-us-county-indemnity/ height=100% width=100% ></iframe></div>
 _"US County Presidents Votes" in a resizable window. One finger to rotate. Two to zoom._
 @@@-->
