@@ -198,7 +198,7 @@
 	File: ${ fileName }
 </p>`;
 
-					lines = text.split( /\r\n/ ).map( line => line.split( "|" ).map( item => item.trim() ) ).slice( 0, -1 );
+					lines = text.split( /\r\n|\n/ ).map( line => line.split( "|" ).map( item => item.trim() ) ).slice( 0, -1 );
 
 					divContent.innerText = `
 First 30 of ${ lines.length.toLocaleString() } lines of RMA statistics: \n
