@@ -151,7 +151,7 @@
 
 			divContent.innerHTML = `<p>It takes a few seconds for the data file to load.</p>`;
 			const year = selYear.value;
-			url = `rma-samples.zip`
+			url = `../rma-sample.zip`
 			url = `https://theo-armour.github.io/maps-2021/data/usda-rma/colsom_${ year }.zip`
 			//url = "https://cdn.jsdelivr.net/gh/pushme-pullyou/tootoo-2021@master/README.md";
 
@@ -161,7 +161,7 @@
 			butCountyData.disabled = true;
 
 			xhr = new XMLHttpRequest();
-			xhr.open( "GET", urlCORS + url, true );
+			xhr.open( "GET", url, true );
 			xhr.responseType = "blob";
 			xhr.onerror = ( xhr ) => console.log( "error:", xhr );
 			//xhr.onprogress = ( xhr ) => console.log( "bytes loaded:", xhr.loaded );
