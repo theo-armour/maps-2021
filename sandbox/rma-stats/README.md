@@ -1,4 +1,4 @@
-# [![](https://theo-armour.github.io/maps-2021/lib/assets/icons/mark-github.svg )](https://github.com/theo-armour/maps-2021/tree/main/sandbox/rma-stats "Source code on GitHub" ) [Maps 2021]( https://theo-armour.github.io/maps-2021/ "Home page" ) / [USDA Risk Management Agency Data Fules Read Me]( https://theo-armour.github.io/maps-2021/#sandbox/rma-stats/README.md)
+# [![](https://theo-armour.github.io/maps-2021/lib/assets/icons/mark-github.svg )](https://github.com/theo-armour/maps-2021/tree/main/sandbox/rma-stats "Source code on GitHub" ) [Maps 2021]( https://theo-armour.github.io/maps-2021/ "Home page" ) / [USDA Risk Management Agency Historical Data Files Read Me]( https://theo-armour.github.io/maps-2021/#sandbox/rma-stats/README.md)
 
 
 <!--@@@
@@ -30,7 +30,7 @@ This folder contains sample data files from here:
 
 https://www.rma.usda.gov/-/media/RMA/Cause-Of-Loss/Summary-of-Business-with-Month-of-Loss/colsommonth_allyears-pdf.ashx?la=en
 
-Following taken from "Cause of Loss Information – Summary of Business Data"
+Following variable created using data taken from "Cause of Loss Information – Summary of Business Data"
 
 ``` JavaScript
 
