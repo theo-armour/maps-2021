@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0" />
 	<meta name="description" content="Examine USDA Risk Management Agency Statistics as text">
 	<meta name="date" content="2021-08-01">
-	<title></title>
+	<title>Historical data from USDA Risk Management Agency</title>
 	<style>
 		body {
 			font: 100% monospace;
@@ -287,7 +287,7 @@ ${ text.join( "\n" ) }`;
 
 
 
-		function getCountyData() {
+		function getCountyDataSimple() {  // not used
 
 			counties = [ ...new Set( lines.map( line => {
 
