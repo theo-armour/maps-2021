@@ -133,6 +133,12 @@
 
 			requestFile();
 
+			if ( !location.hash && location.protocol === "https:" ) {
+
+				window.history.pushState( "", "", "../../");
+
+			}
+
 		}
 
 
