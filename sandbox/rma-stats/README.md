@@ -79,15 +79,20 @@ const elements = [
 
 ```
 
+## Issues
+
+* Looks like "Planted Acres" is being double counted along with other other similar issues
+
+
 ## To Do / Wish List
 
+* 2021-08-01 ~ Develop a way of checking county data for errors in data interpretation
 * 2021-08-01 ~ Present data by states then county
 * 2021-08-01 ~ Use menu or display tag to show and hide data by state then county
 * 2021-08-01 ~ Identify major crops by country, state & county
 * 2021-08-01 ~ Identify major losses by country, state & county
 * 2021-08-01 ~ Help Idetify data that msy be viewed on a map
 
-## Issues
 
 
 ## Links of Interest
