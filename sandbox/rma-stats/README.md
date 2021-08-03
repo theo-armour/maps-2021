@@ -81,29 +81,40 @@ const elements = [
 
 ## Issues
 
-* Looks like "Planted Acres" is being double counted along with other other similar issues
-
 
 ## To Do / Wish List
 
+* 2021-08-02 ~ Add a sortable table routine for national data
+* 2021-08-02 ~ Add a state data page
+* 2021-08-02 ~ Figure out a useful and nice way of displaying individual records
 * 2021-08-01 ~ Develop a way of checking county data for errors in data interpretation
-* 2021-08-01 ~ Present data by states then county
-* 2021-08-01 ~ Use menu or display tag to show and hide data by state then county
-* 2021-08-01 ~ Identify major crops by country, state & county
-* 2021-08-01 ~ Identify major losses by country, state & county
-* 2021-08-01 ~ Help Idetify data that msy be viewed on a map
-
+* 2021-08-01 ~ Help identify data that may be viewed on a map
 
 
 ## Links of Interest
 
-
+* https://www.rma.usda.gov/en/Information-Tools/Summary-of-Business/Cause-of-Loss
 * https://www.rma.usda.gov/
 * https://ftp.rma.usda.gov/
 * https://www.rma.usda.gov/Information-Tools/Summary-of-Business/State-County-Crop-Summary-of-Business
 
 
 ## Change Log
+
+### 2021-08-02
+
+Yikes! What a nice jump toward a better user experience.
+
+Done
+
+* 2021-08-01 ~ Present data by states then county
+* 2021-08-01 ~ Use menu or display tag to show and hide data by state then county
+* 2021-08-01 ~ Identify major crops by country, state & county
+* 2021-08-01 ~ Identify major losses by country, state & county
+
+Fixed?
+
+* Looks like "Planted Acres" is being double counted along with other other similar issues
 
 ### 2021-08-01
 

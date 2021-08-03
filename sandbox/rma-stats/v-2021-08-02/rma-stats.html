@@ -288,7 +288,8 @@ ${ lines.slice( 0, 30 ).join( "\n" ) }`;
 			cropTypes = [ ...new Set( lines.map( line => line[ 6 ] ))].sort();
 
 			htm = `<h1>National Data for ${ selYear.value }</h1>
-<p>In a future release the following tabular data will be displayed using a sortable table maker JavaScript library</p>
+<p>
+<i>In a future release the following tabular data will be displayed using a sortable table maker JavaScript library</i></p>
 <p>
 Losses:${ lines.length.toLocaleString() }<br>
 Acres: ${ lines.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) }<br>
