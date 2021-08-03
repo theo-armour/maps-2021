@@ -105,8 +105,13 @@ const elements = [
 
 Yikes! What a nice jump toward a better user experience.
 
+It was one of those days where you can write ten lines of code, press reload - and it all just works
+
 Done
 
+* 2021-08-02 ~ Make mobile friendly
+* 2021-08-02 ~ Add location.hash links to select counties
+* 2021-08-02 ~ Add display random county at start up
 * 2021-08-01 ~ Present data by states then county
 * 2021-08-01 ~ Use menu or display tag to show and hide data by state then county
 * 2021-08-01 ~ Identify major crops by country, state & county
