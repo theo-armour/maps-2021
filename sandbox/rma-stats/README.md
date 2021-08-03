@@ -84,8 +84,12 @@ const elements = [
 
 ## To Do / Wish List
 
+* 2021-08-02 ~ Contact USDA RMA
 * 2021-08-02 ~ Add a sortable table routine for national data
 * 2021-08-02 ~ Add a state data page
+* 2021-08-02 ~ Make mobile friendly
+* 2021-08-02 ~ Add location.hash links to select counties
+* 2021-08-02 ~ Add display random county at start up
 * 2021-08-02 ~ Figure out a useful and nice way of displaying individual records
 * 2021-08-01 ~ Develop a way of checking county data for errors in data interpretation
 * 2021-08-01 ~ Help identify data that may be viewed on a map
@@ -105,13 +109,16 @@ const elements = [
 
 Yikes! What a nice jump toward a better user experience.
 
-It was one of those days where you can write ten lines of code, press reload - and it all just works
+It was one of those days where you can write ten lines of code, press reload - and it all just works.
+
+A bunch of to-do items have been dealt with. What's next>
+
+* Add sortable tables
+* The code can now slice and dice the data in any needed fashion. We need to figure what to do with the data
+
 
 Done
 
-* 2021-08-02 ~ Make mobile friendly
-* 2021-08-02 ~ Add location.hash links to select counties
-* 2021-08-02 ~ Add display random county at start up
 * 2021-08-01 ~ Present data by states then county
 * 2021-08-01 ~ Use menu or display tag to show and hide data by state then county
 * 2021-08-01 ~ Identify major crops by country, state & county
