@@ -93,11 +93,11 @@
 			<summary class="summary-primary gmd-1">View national & states data</summary>
 
 			<p>
-				<button onclick=getNationalData()>View national & states data</button>
+				<button onclick=getNationalData()>View national data</button>
 			</p>
 
 			<p>
-				<button onclick="alert('Coming soon!')" ">View national & states data</button>
+				<button onclick="alert('Coming soon!')" ">View states data</button>
 			</p>
 
 		</details>
@@ -336,11 +336,11 @@ ${ lines.slice( 0, 30 ).join( "\n" ) }`;
 		function getNationalData() {
 
 			divContent.innerHTML = `
-<h1>National Data for ${ selYear.value }</h1>
+<h1>National Data for Cause of Crop Loss in ${ selYear.value }</h1>
 <p>
-	Total Losses:${ lines.length.toLocaleString() }<br>
-	Total Acres: ${ lines.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) }<br>
-	Total Indemnities: $${ lines.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) }<br>
+	Total number of losses: ${ lines.length.toLocaleString() }<br>
+	Total acres planted: ${ lines.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) }<br>
+	Total indemnities paid: $${ lines.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) }<br>
 </p>
 <h2>Crops</h2>
 <div id=divCrops ></div>
@@ -432,9 +432,9 @@ ${ lines.slice( 0, 30 ).join( "\n" ) }`;
 <br>
 Crop types: ${ countCropTypes.join( "; " ) }<br>
 County peril types types: ${ countyPerilTypes.join( "; " ) }<br>
-County records: ${ records.length }<br>
-County acres planted: ${ acresPlanted }<br>
-County Indemnities: $${ indemnities }<br>
+County number of losses: ${ records.length }<br>
+County total acres planted: ${ acresPlanted }<br>
+County total indemnities paid: $${ indemnities }<br>
 `;
 
 
@@ -450,7 +450,7 @@ County Indemnities: $${ indemnities }<br>
 				htm += `<h2 style=margin-bottom:0;>${ crop } - ${ cropRecords.length }</h2>
 				<div>
 				Acres planted: ${ acresPlanted.reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) }<br>
-				Total indemnities: $${ indemnities.reduce( ( a, b ) => a + b, 0 ).toLocaleString() }<br>
+				Total indemnities paid: $${ indemnities.reduce( ( a, b ) => a + b, 0 ).toLocaleString() }<br>
 				</div>`
 
 				perilTypes.forEach( peril => {
@@ -468,7 +468,7 @@ County Indemnities: $${ indemnities }<br>
 
 			} )
 
-			divContent.innerHTML = htm + `<hr>
+			divContent.innerHTML = htm + `<br><hr>
 				<center title="Hello! Click me to go up to the top" ><a class=aDingbat href=javascript:window.scrollTo(0,0);> ❦ </a></center >`;
 
 			//+ "<h3>all records</h3>" + records.join( "<br>" );
