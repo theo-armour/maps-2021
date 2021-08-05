@@ -83,12 +83,12 @@
 
 		</details>
 
-		<details >
+		<details>
 
 			<summary class="summary-primary gmd-1">View national & states data</summary>
 
 			<p>
-				<button onclick=getNationalData() >View national & states data</button>
+				<button onclick=getNationalData()>View national & states data</button>
 			</p>
 
 			<p>
@@ -100,9 +100,9 @@
 
 		<details id=detStateCounty open>
 
-			<summary class="summary-primary gmd-1">View data by county</summary>
+			<summary class=" summary-primary gmd-1">View data by county</summary>
 
-			<div id="divStateCounty"></div>
+					<div id="divStateCounty"></div>
 
 		</details>
 
@@ -227,8 +227,8 @@
 			<p>Then click any of the county buttons to view the statistics</p>`;
 
 			const year = selYear.value;
-			url = `../rma-sample.zip`
-			//url = `https://theo-armour.github.io/maps-2021/data/usda-rma/colsom_${ year }.zip`
+			//url = `../rma-sample.zip`
+			url = `https://theo-armour.github.io/maps-2021/data/usda-rma/colsom_${ year }.zip`
 			//url = "https://cdn.jsdelivr.net/gh/pushme-pullyou/tootoo-2021@master/README.md";
 
 			const urlCORS = ""; //https://cors-anywhere.herokuapp.com/";
@@ -241,7 +241,7 @@
 			xhr.open( "GET", url, true );
 			xhr.responseType = "blob";
 			xhr.onerror = ( xhr ) => console.log( "error:", xhr );
-			//xhr.onprogress = ( xhr ) => console.log( "bytes loaded:", xhr.loaded );
+			xhr.onprogress = ( xhr ) => divContent.innerHTML += `<p>Bytes loaded: ${ xhr.loaded.toLocaleString() }</p>`;
 			xhr.onload = ( xhr ) => callback( xhr.target.response );
 			xhr.send( null );
 
@@ -268,108 +268,122 @@
 					detStateCounty.disabled = false;
 					selElement.disabled = false;
 					butCountyData.disabled = false;
-					divFileOpenZip.innerHTML = `
-<p>
-	Results<br>
-	Bytes loaded: ${ text.length.toLocaleString() }<br>
-	Time elapsed ${ ( performance.now() - timeStart ).toLocaleString() } ms<br>
-	File: ${ fileName }
-</p>`;
+
+					const txt = `
+\n
+Results
+Bytes loaded: ${ text.length.toLocaleString() }
+Time elapsed ${ ( performance.now() - timeStart ).toLocaleString() } ms
+File: ${ fileName }`;
+
+					divFileOpenZip.innerText = txt;
 
 					lines = text.split( /\r\n|\n/ ).map( line => line.split( "|" ).map( item => item.trim() ) ).slice( 0, -1 );
 
-// 					divContent.innerText = `
-// First 30 of ${ lines.length.toLocaleString() } lines of RMA statistics: \n
-// ${ lines.slice( 0, 30 ).join( "\n" ) }`;
+					divContent.innerText = txt + `
+First 30 of ${ lines.length.toLocaleString() } lines of RMA statistics: \n
+${ lines.slice( 0, 30 ).join( "\n" ) }`;
 
+					//renderGrid( lines );
 				} );
 
 
-				renderGrid( response )
+
 		}
 
 
 
 
-			function renderGrid( response ) {
+		function renderGrid( data, target = divContent ) {
 
-				//filter = response.filter( line => line.length !== 11);
+			//filter = data.filter( line => line.length !== 11);
 
-				//console.log( "filter", filter );
+			//console.log( "data", data );
+			console.log( "target", target );
 
-				data = response ||
-					[
-						[ "city", "city_ascii", "lat", "lng", "country", "iso2", "iso3", "admin_name", "capital", "population", "id" ],
-						[ "Kolkāta", "Kolkata", "22.5411", "88.3378", "India", "IN", "IND", "West Bengal", "admin", "17560000", "1356060520" ],
-						[ "Moscow", "Moscow", "55.7558", "37.6178", "Russia", "RU", "RUS", "Moskva", "primary", "17125000", "1643318494" ],
-						[ "Bangkok", "Bangkok", "13.7500", "100.5167", "Thailand", "TH", "THA", "Krung Thep Maha Nakhon", "primary", "17066000", "1764068610" ],
-						[ "Buenos Aires", "Buenos Aires", "-34.5997", "-58.3819", "Argentina", "AR", "ARG", "Buenos Aires", " Ciudad Autónoma de", "primary", "16157000", "1032717330" ],
-						[ "Shenzhen", "Shenzhen", "22.5350", "114.0540", "China", "CN", "CHN", "Guangdong", "minor", "15929000", "1156158707" ],
-						[ "Dhaka", "Dhaka", "23.7161", "90.3961", "Bangladesh", "BD", "BGD", "Dhaka", "primary", "15443000", "1050529279" ],
-						[ "Lagos", "Lagos", "6.4500", "3.4000", "Nigeria", "NG", "NGA", "Lagos", "minor", "15279000", "1566593751" ],
-						[ "Istanbul", "Istanbul", "41.0100", "28.9603", "Turkey", "TR", "TUR", "İstanbul", "admin", "15154000", "1792756324" ],
-						[ "Ōsaka", "Osaka", "34.6936", "135.5019", "Japan", "JP", "JPN", "Ōsaka", "admin", "14977000", "1392419823" ],
-						[ "Karachi", "Karachi", "24.8600", "67.0100", "Pakistan", "PK", "PAK", "Sindh", "admin", "14835000", "1586129469" ],
-						[ "Bangalore", "Bangalore", "12.9699", "77.5980", "India", "IN", "IND", "Karnātaka", "admin", "13707000", "1356410365" ],
-						[ "Tehran", "Tehran", "35.7000", "51.4167", "Iran", "IR", "IRN", "Tehrān", "primary", "13633000", "1364305026" ],
-						[ "Kinshasa", "Kinshasa", "-4.3317", "15.3139", "Congo (Kinshasa)", "CD", "COD", "Kinshasa", "primary", "13528000", "1180000363" ],
-						[ "Ho Chi Minh City", "Ho Chi Minh City", "10.8167", "106.6333", "Vietnam", "VN", "VNM", "Hồ Chí Minh", "admin", "13312000", "1704774326" ],
-						[ "Los Angeles", "Los Angeles", "34.1139", "-118.4068", "United States", "US", "USA", "California", "", "12750807", "1840020491" ],
-						[ "Rio de Janeiro", "Rio de Janeiro", "-22.9083", "-43.1964", "Brazil", "BR", "BRA", "Rio de Janeiro", "admin", "12272000", "1076887657" ],
-					];
-				//console.log( "data", data );
+			target.innerHTML = "";
 
-				new gridjs.Grid( {
-					columns: data[ 0 ],
-					fixedHeader: true,
-					//height: "30rem",
-					pagination: { limit: 20 },
-					search: true,
-					sort: true,
-					data: data.slice( 1 ),
-				} ).render( divContent ) );
+			data = data ||
+				[
+					[ "city", "city_ascii", "lat", "lng", "country", "iso2", "iso3", "admin_name", "capital", "population", "id" ],
+					[ "Kolkāta", "Kolkata", "22.5411", "88.3378", "India", "IN", "IND", "West Bengal", "admin", "17560000", "1356060520" ],
+					[ "Moscow", "Moscow", "55.7558", "37.6178", "Russia", "RU", "RUS", "Moskva", "primary", "17125000", "1643318494" ],
+					[ "Bangkok", "Bangkok", "13.7500", "100.5167", "Thailand", "TH", "THA", "Krung Thep Maha Nakhon", "primary", "17066000", "1764068610" ],
+					[ "Buenos Aires", "Buenos Aires", "-34.5997", "-58.3819", "Argentina", "AR", "ARG", "Buenos Aires", " Ciudad Autónoma de", "primary", "16157000", "1032717330" ],
+					[ "Shenzhen", "Shenzhen", "22.5350", "114.0540", "China", "CN", "CHN", "Guangdong", "minor", "15929000", "1156158707" ],
+					[ "Dhaka", "Dhaka", "23.7161", "90.3961", "Bangladesh", "BD", "BGD", "Dhaka", "primary", "15443000", "1050529279" ],
+					[ "Lagos", "Lagos", "6.4500", "3.4000", "Nigeria", "NG", "NGA", "Lagos", "minor", "15279000", "1566593751" ],
+					[ "Istanbul", "Istanbul", "41.0100", "28.9603", "Turkey", "TR", "TUR", "İstanbul", "admin", "15154000", "1792756324" ],
+					[ "Ōsaka", "Osaka", "34.6936", "135.5019", "Japan", "JP", "JPN", "Ōsaka", "admin", "14977000", "1392419823" ],
+					[ "Karachi", "Karachi", "24.8600", "67.0100", "Pakistan", "PK", "PAK", "Sindh", "admin", "14835000", "1586129469" ],
+					[ "Bangalore", "Bangalore", "12.9699", "77.5980", "India", "IN", "IND", "Karnātaka", "admin", "13707000", "1356410365" ],
+					[ "Tehran", "Tehran", "35.7000", "51.4167", "Iran", "IR", "IRN", "Tehrān", "primary", "13633000", "1364305026" ],
+					[ "Kinshasa", "Kinshasa", "-4.3317", "15.3139", "Congo (Kinshasa)", "CD", "COD", "Kinshasa", "primary", "13528000", "1180000363" ],
+					[ "Ho Chi Minh City", "Ho Chi Minh City", "10.8167", "106.6333", "Vietnam", "VN", "VNM", "Hồ Chí Minh", "admin", "13312000", "1704774326" ],
+					[ "Los Angeles", "Los Angeles", "34.1139", "-118.4068", "United States", "US", "USA", "California", "", "12750807", "1840020491" ],
+					[ "Rio de Janeiro", "Rio de Janeiro", "-22.9083", "-43.1964", "Brazil", "BR", "BRA", "Rio de Janeiro", "admin", "12272000", "1076887657" ],
+				];
+			//console.log( "data", data );
 
-			}
+			new gridjs.Grid( {
+				columns: data[ 0 ],
+				fixedHeader: true,
+				//height: "30rem",
+				pagination: { limit: 20 },
+				search: true,
+				sort: true,
+				data: data.slice( 1 )
+			} ).render( target );
+
+		}
 
 
 
 
 		function getNationalData() {
 
-			cropTypes = [ ...new Set( lines.map( line => line[ 6 ] ))].sort();
+			divContent.innerHTML = `<h1>National Data for ${ selYear.value }</h1>
+			<p>
+				Total Losses:${ lines.length.toLocaleString() }<br>
+				Total Acres: ${ lines.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) }<br>
+				Total Indemnities: $${ lines.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) }<br>
+				</p>
+				<h2>Crops</h2>
+				<div id=divCrops ></div>
+				<h2>Perils</h2>
+				<div id=divPerils ></div>`;
 
-			htm = `<h1>National Data for ${ selYear.value }</h1>
-<p>
-<i>In a future release the following tabular data will be displayed using a sortable table maker JavaScript library</i></p>
-<p>
-Losses:${ lines.length.toLocaleString() }<br>
-Acres: ${ lines.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) }<br>
-Indemnities: ${ lines.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) }<br>
-</p>
-
-`;
-
-			htm += `<h2>Crops</h2>`;
-			cropTypes.forEach( crop => {
+			const cropTypes = [ ...new Set( lines.map( line => line[ 6 ] ) ) ].sort();
+			const dataCrops = cropTypes.map( crop => {
 				losses = lines.filter( line => line[ 6 ] === crop )
-				acres = losses.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } );
-				indemnities = losses.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } );
-				htm += `${ crop } - losses ${ losses.length.toLocaleString() } - acres ${ acres } - indemnities $${ indemnities }<br>`
+				acres = losses.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 );
+				indemnities = losses.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 );
+				return [ crop, losses.length, acres, indemnities ];
 
 			} );
 
-			htm += `<h2>Perils</h2>`;
-			perils = [ ...new Set( lines.map( line => line[ 12 ] ) ) ].sort();
+			const dataCrops.unshift( [ "Crop",
+			{ name: "Losses", formatter: ( cell ) => `${ cell.toLocaleString() }` },
+			{ name: "Acres", formatter: ( cell ) => `${ cell.toLocaleString( undefined, { maximumFractionDigits: 0 } ) }` },
+			{ name: "Indemnities", formatter: ( cell ) => `$${ cell.toLocaleString( undefined, { maximumFractionDigits: 0 } ) }` }, ] );
 
-			perils.forEach( peril => {
+			renderGrid( dataCrops, divCrops )
+
+			const perils = [ ...new Set( lines.map( line => line[ 12 ] ) ) ].sort();
+			const dataPerils = perils.map( peril => {
 				losses = lines.filter( line => line[ 12 ] === peril )
-				acres = losses.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } );
-				indemnities = losses.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } );
-				htm += `${ peril } - losses ${ losses.length.toLocaleString() } - acres ${ acres } - indemnities $${ indemnities }<br>`
-
+				acres = losses.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 );
+				indemnities = losses.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 );
+				return [ peril, losses.length, acres, indemnities ];
 			} );
 
-			divContent.innerHTML = htm;
+			dataPerils.unshift( [ "Peril",
+				{ name: "Losses", formatter: ( cell ) => `${ cell.toLocaleString() }` },
+				{ name: "Acres", formatter: ( cell ) => `${ cell.toLocaleString( undefined, { maximumFractionDigits: 0 } ) }` },
+				{ name: "Indemnities", formatter: ( cell ) => `$${ cell.toLocaleString( undefined, { maximumFractionDigits: 0 } ) }` }, ] );
+
+			renderGrid( dataPerils, divPerils );
+
 		}
 
 
@@ -487,7 +501,7 @@ Indemnities: $${ indemnities }<br>
 
 
 
-// older routines
+		// older routines
 		// simple
 		function listItems( index ) {
 
@@ -570,7 +584,6 @@ ${ elements[ idx ].join( "\n" ) } - followed by number of items in the category\
 ${ text.join( "\n" ) }`;
 
 		}
-
 
 
 		function getCountyDataSimple() {  // not used
