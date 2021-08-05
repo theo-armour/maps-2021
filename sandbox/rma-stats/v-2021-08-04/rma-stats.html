@@ -20,6 +20,11 @@
 			margin: 0;
 		}
 
+		.aDingbat {
+			font-size: 2rem;
+			text-decoration: none;
+		}
+
 		#navMenu {
 			border: 1px solid #888;
 			height: 94vh;
@@ -132,9 +137,10 @@
 	<script>
 
 		const states = [ "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming" ];
+		let state;
 
 		const abbrs = [ "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY" ];
-
+		let abbreviation;
 
 		const elements = [
 			[ "Commodity Year Identifier", "The identifier that represents the year in which the crop commodity is normally harvested and indicates the policy year for which coverage was provided" ],
@@ -169,13 +175,9 @@
 			[ "Loss Ratio", "Calculated: Indemnity / Total Premium." ]
 		];
 
-		let lines;
 		let counties;
-
-		let state;
-		let abbreviation
 		let county;
-		let records;
+		let lines;
 
 		init();
 
@@ -220,7 +222,6 @@
 
 		function requestFile( url = "https://example.com", callback = onLoad ) {
 
-			//style="border:1px solid red;bottom:0;height:5rem;width:30rem;position:absolute;left:0;margin:auto;right:0;top:0;"
 			divContent.innerHTML =
 				`<h2>It takes a few seconds for the data file to load...</h2>
 			<p>Once this message is replaced, click on a state in the left menu to view the counties</p>
@@ -229,9 +230,6 @@
 			const year = selYear.value;
 			//url = `../rma-sample.zip`
 			url = `https://theo-armour.github.io/maps-2021/data/usda-rma/colsom_${ year }.zip`
-			//url = "https://cdn.jsdelivr.net/gh/pushme-pullyou/tootoo-2021@master/README.md";
-
-			const urlCORS = ""; //https://cors-anywhere.herokuapp.com/";
 
 			detStateCounty.disabled = true;
 			selElement.disabled = true;
@@ -284,7 +282,6 @@ File: ${ fileName }`;
 First 30 of ${ lines.length.toLocaleString() } lines of RMA statistics: \n
 ${ lines.slice( 0, 30 ).join( "\n" ) }`;
 
-					//renderGrid( lines );
 				} );
 
 
@@ -293,13 +290,9 @@ ${ lines.slice( 0, 30 ).join( "\n" ) }`;
 
 
 
-
 		function renderGrid( data, target = divContent ) {
-
-			//filter = data.filter( line => line.length !== 11);
-
 			//console.log( "data", data );
-			console.log( "target", target );
+			//console.log( "target", target );
 
 			target.innerHTML = "";
 
@@ -342,16 +335,17 @@ ${ lines.slice( 0, 30 ).join( "\n" ) }`;
 
 		function getNationalData() {
 
-			divContent.innerHTML = `<h1>National Data for ${ selYear.value }</h1>
-			<p>
-				Total Losses:${ lines.length.toLocaleString() }<br>
-				Total Acres: ${ lines.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) }<br>
-				Total Indemnities: $${ lines.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) }<br>
-				</p>
-				<h2>Crops</h2>
-				<div id=divCrops ></div>
-				<h2>Perils</h2>
-				<div id=divPerils ></div>`;
+			divContent.innerHTML = `
+<h1>National Data for ${ selYear.value }</h1>
+<p>
+	Total Losses:${ lines.length.toLocaleString() }<br>
+	Total Acres: ${ lines.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) }<br>
+	Total Indemnities: $${ lines.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) }<br>
+</p>
+<h2>Crops</h2>
+<div id=divCrops ></div>
+<h2>Perils</h2>
+<div id=divPerils ></div>`;
 
 			const cropTypes = [ ...new Set( lines.map( line => line[ 6 ] ) ) ].sort();
 			const dataCrops = cropTypes.map( crop => {
@@ -362,10 +356,10 @@ ${ lines.slice( 0, 30 ).join( "\n" ) }`;
 
 			} );
 
-			const dataCrops.unshift( [ "Crop",
-			{ name: "Losses", formatter: ( cell ) => `${ cell.toLocaleString() }` },
-			{ name: "Acres", formatter: ( cell ) => `${ cell.toLocaleString( undefined, { maximumFractionDigits: 0 } ) }` },
-			{ name: "Indemnities", formatter: ( cell ) => `$${ cell.toLocaleString( undefined, { maximumFractionDigits: 0 } ) }` }, ] );
+			dataCrops.unshift( [ "Crop",
+				{ name: "Losses", formatter: ( cell ) => `${ cell.toLocaleString() }` },
+				{ name: "Acres", formatter: ( cell ) => `${ cell.toLocaleString( undefined, { maximumFractionDigits: 0 } ) }` },
+				{ name: "Indemnities", formatter: ( cell ) => `$${ cell.toLocaleString( undefined, { maximumFractionDigits: 0 } ) }` }, ] );
 
 			renderGrid( dataCrops, divCrops )
 
@@ -393,26 +387,10 @@ ${ lines.slice( 0, 30 ).join( "\n" ) }`;
 			abbreviation = abbrs[ index ];
 			state = states[ index ];
 			counties = [];
-			counts = [];
 
 			if ( !lines ) alert( "please wait until data is loaded" );
 
-			lines.forEach( ( line ) => {
-
-				const county = line[ 4 ];
-
-				if ( line[ 2 ] === abbreviation && !counties.includes( county ) ) {
-
-					counties.push( county );
-					counts.push( 1 );
-
-				} else {
-
-					counts[ county.indexOf( county ) ]++;
-
-				}
-
-			} );
+			counties = [ ... new Set( lines.filter( line => line[ 2 ] === abbreviation ).map( line => line[ 4 ] ) ) ];
 
 			const div = document.body.querySelector( "#divState" + abbreviation );
 
@@ -427,7 +405,7 @@ ${ lines.slice( 0, 30 ).join( "\n" ) }`;
 		function getCounty( index ) {
 
 			const county = counties[ index ];
-			const cropTypes = [];
+			const countCropTypes = [];
 			const countyPerilTypes = [];
 
 			const records = lines.filter( line => line[ 2 ] === abbreviation && line[ 4 ] === county );
@@ -435,13 +413,13 @@ ${ lines.slice( 0, 30 ).join( "\n" ) }`;
 
 			records.forEach( ( line ) => {
 
-				if ( !cropTypes.includes( line[ 6 ] ) ) { cropTypes.push( line[ 6 ] ); }
+				if ( !countCropTypes.includes( line[ 6 ] ) ) { countCropTypes.push( line[ 6 ] ); }
 
 				if ( !countyPerilTypes.includes( line[ 12 ] ) ) { countyPerilTypes.push( line[ 12 ] ); }
 
 			} );
 
-			cropTypes.sort();
+			countCropTypes.sort();
 			countyPerilTypes.sort()
 
 			const acresPlanted = records.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } )
@@ -452,15 +430,15 @@ ${ lines.slice( 0, 30 ).join( "\n" ) }`;
 <a href="https://en.wikipedia.org/wiki/${ county }_County,_${ state }" target="_blank">Wikipedia entry</a>
 <a href="https://www.wolframalpha.com/input/?i=+${ county }+${ state }" target="_blank">Wolfram Alpha entry</a>
 <br>
-Crop types: ${ cropTypes.join( "; " ) }<br>
+Crop types: ${ countCropTypes.join( "; " ) }<br>
 County peril types types: ${ countyPerilTypes.join( "; " ) }<br>
 County records: ${ records.length }<br>
-Acres planted: ${ acresPlanted }<br>
-Indemnities: $${ indemnities }<br>
+County acres planted: ${ acresPlanted }<br>
+County Indemnities: $${ indemnities }<br>
 `;
 
 
-			cropTypes.forEach( crop => {
+			countCropTypes.forEach( crop => {
 
 				const cropRecords = records.filter( line => line[ 6 ] === crop );
 
@@ -469,27 +447,28 @@ Indemnities: $${ indemnities }<br>
 				const acresPlanted = cropRecords.map( line => + line[ 18 ] );
 				const indemnities = cropRecords.map( line => + line[ 28 ] );
 
-				htm += `<h2>${ crop } - ${ cropRecords.length }</h2>
-				<p>
+				htm += `<h2 style=margin-bottom:0;>${ crop } - ${ cropRecords.length }</h2>
+				<div>
 				Acres planted: ${ acresPlanted.reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) }<br>
 				Total indemnities: $${ indemnities.reduce( ( a, b ) => a + b, 0 ).toLocaleString() }<br>
-				</p>`
+				</div>`
 
 				perilTypes.forEach( peril => {
 
 					const perilRecords = cropRecords.filter( line => line[ 12 ] === peril );
 					const acresPeril = perilRecords.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } );
 					const indemnitiesPeril = perilRecords.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( 'en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 } );
-					htm += `<h3>${ peril } - losses ${ perilRecords.length } - acres ${ acresPeril } - indemnities ${ indemnitiesPeril }</h3>
-<p>
+					htm += `<h3 style=margin-bottom:0; >${ peril } - losses ${ perilRecords.length } - acres ${ acresPeril } - indemnities ${ indemnitiesPeril }</h3>
+<details>
+	<summary>Individual records</summary>
 		${ perilRecords.join( "<br>" ) }
-</p>`
+</details>`
 				} )
 
 
 			} )
 
-			divContent.innerHTML = htm + `<hr<
+			divContent.innerHTML = htm + `<hr>
 				<center title="Hello! Click me to go up to the top" ><a class=aDingbat href=javascript:window.scrollTo(0,0);> ❦ </a></center >`;
 
 			//+ "<h3>all records</h3>" + records.join( "<br>" );
