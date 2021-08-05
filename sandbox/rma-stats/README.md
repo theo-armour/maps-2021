@@ -85,7 +85,9 @@ const elements = [
 ## To Do / Wish List
 
 * 2021-08-02 ~ Contact USDA RMA
-* 2021-08-02 ~ Add a sortable table routine for national data
+
+* 2021-08-04 ~ Counties page ~ add acres and indemnities number to buttons?
+* 2021-08-04 ~ Counties page ~ click state button to vire data in divContent
 * 2021-08-02 ~ Add a state data page
 * 2021-08-02 ~ Make mobile friendly
 * 2021-08-02 ~ Add location.hash links to select counties
@@ -104,6 +106,15 @@ const elements = [
 
 
 ## Change Log
+
+## 2021-08-04
+
+* Add grid.js to render the national data. grid.js is a ton of fun!
+* Clean things up a bit
+
+Done
+
+* 2021-08-02 ~ Add a sortable table routine for national data
 
 ### 2021-08-02
 
