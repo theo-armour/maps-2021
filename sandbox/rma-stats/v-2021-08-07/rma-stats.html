@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0" />
 	<meta name="description" content="Examine USDA Risk Management Agency Statistics as text">
-	<meta name="date" content="2021-08-08">
+	<meta name="date" content="2021-08-07">
 	<title>Data: USDA Risk Management Agency Cause of Loss</title>
 	<style>
 		body {
@@ -88,54 +88,30 @@
 
 		</details>
 
-		<!-- <details>
+		<p>
+			<button onclick=renderNationalGrid()>View national data</button>
+		</p>
 
-			<summary class="summary-primary gmd-1">View national & states data</summary> -->
-
-			<p>
-				<button onclick=getNationalData()>View national data</button>
-			</p>
-
-			<p>
-				<button onclick=getState(5) ">View states data</button>
-			</p>
-
-		<!-- </details> -->
+		<p>
+			<button onclick=renderStatesGrid() ">View states data</button>
+		</p>
 
 
 		<details id=detStateCounty open>
 
 			<summary class=" summary-primary gmd-1">View data by county</summary>
 
-					<div id="divStateCounty"></div>
+				<div id="divStateCounty"></div>
 
-		</details>
+				</details>
 
-		<details>
-
-			<summary class="summary-primary gmd-1" y>Explore data by fields</summary>
-
-			<p>
-				<label>
-					Select an element:<br>
-
-					<select id=selElement oninput=listItems(this.selectedIndex); size=10></select>
-				</label>
-			</p>
-
-			<p>
-				<button id=butCountyData onclick=getCountyData();>Display county data totals</button>
-			</p>
-
-
-		</details>
 	</nav>
 
 	<div id="divContent">/div>
 
 		<script>
 
-	timeStart = performance.now();
+			timeStart = performance.now();
 
 			const states = [ "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming" ];
 			let state;
@@ -158,12 +134,12 @@
 				[ "Cause of Loss Code", "The RMA code tht identifies the peril that caused the loss on the crop" ],
 				[ "Cause of Loss Description", "Description of the cause of loss." ],
 				[ "Month of Loss", "Month when the loss occurred" ],
-				[ "Month of Loss Name", "Name of the month when te loss occurred" ],
+				[ "Month of Loss Name", "Name of the month when the loss occurred" ],
 				[ "Year of Loss", "Year the loss occurred" ],
 				[ "Policies Earning Premium", "Count of th number of crop policies with premium NOTE : Not available for years prior to 1989." ],
 				[ "Policies Indemnified", "Count of the number of crop policies with a reported loss" ],
-				[ "Net Planted Acres", "Number of acres planted to the crop after the insured’sshare is applied." ],
-				[ "Net Endorsed Acres", "Number of acres insured under an endorsement (e.g. SCO, STAX, Margin Protction)" ],
+				[ "Net Planted Acres", "Number of acres planted to the crop after the insured’s share is applied." ],
+				[ "Net Endorsed Acres", "Number of acres insured under an endorsement (e.g. SCO, STAX, Margin Protection)" ],
 				[ "Liability", "The maximum dollar amount of insurance for the crop" ],
 				[ "Total Premium", "Premium before application of any subsidies. In general, the base premium rates times liability (Also called the base premium)" ],
 				[ "Producer Paid Premium", "Premium paid by the producer" ],
@@ -175,6 +151,10 @@
 				[ "Indemnity Amount", "The total amount of the loss for the designated peril." ],
 				[ "Loss Ratio", "Calculated: Indemnity / Total Premium." ]
 			];
+
+			//console.log( "", elements );
+
+			let columns = elements.map( element => element.shift() );
 
 			let counties;
 			let county;
@@ -193,9 +173,6 @@
 				selYear.innerHTML = htm;
 				selYear.selectedIndex = 0;
 
-				const htm2 = [ ...Array( elements.length ) ].map( ( item, i ) => `<option title="${ elements[ i ][ 1 ] }" >${ i + 1 }. ${ elements[ i ][ 0 ] }</option>` )
-				selElement.innerHTML = htm2;
-
 				getStates();
 
 				requestFile();
@@ -213,7 +190,7 @@
 			function getStates() {
 
 				const htm = states.map( ( aState, i ) => `
-<details ontoggle=getCounties("${ i }") >
+<details ontoggle=if(this.open){getCounties(${ i });renderStateGrid(${ i })} >
 <summary>${ aState }</summary>
 <div id=divState${ abbrs[ i ] } ></div>
 </details>` );
@@ -235,8 +212,6 @@
 				url = `https://theo-armour.github.io/maps-2021/data/usda-rma/colsom_${ year }.zip`
 
 				detStateCounty.disabled = true;
-				selElement.disabled = true;
-				butCountyData.disabled = true;
 
 				xhr = new XMLHttpRequest();
 				xhr.open( "GET", url, true );
@@ -267,24 +242,34 @@
 					} ).then( text => {
 
 						detStateCounty.disabled = false;
-						selElement.disabled = false;
-						butCountyData.disabled = false;
 
-						const txt =
-							`\nResults
-Bytes loaded: ${ text.length.toLocaleString() }
-Time elapsed ${ ( performance.now() - timeStart ).toLocaleString() } ms
-File: ${ fileName }`;
+						const htm =
+							`<h3>Raw Data Loaded</h3>
+<p>
+Bytes loaded: ${ text.length.toLocaleString() }<br>
+File loaded: ${ fileName }<br>
+Time elapsed ${ ( performance.now() - timeStart ).toLocaleString() } ms<br>
+</p>`;
 
-						divFileOpenZip.innerText = txt;
+						divFileOpenZip.innerHTML = htm;
 
 						lines = text.split( /\r\n|\n/ ).map( line => line.split( "|" ).map( item => item.trim() ) ).slice( 0, -1 );
 
-						divContent.innerText = txt + `
-First 30 of ${ lines.length.toLocaleString() } lines of RMA statistics: \n
-${ lines.slice( 0, 30 ).join( "\n" ) }`;
+						//lines.unshift( columns );
 
-						window.requestIdleCallback( () => console.log( `idleCallback Time elapsed ${ ( performance.now() - timeStart ).toLocaleString() } ms` ) );
+						divContent.innerHTML =
+							`${ htm }
+<h3>Data Sample</h3>
+<p>Click the buttons in the left menu to view selected national, state and county data sets.</p>
+<p>
+Below you can aee the first 30 of ${ lines.length.toLocaleString() } lines of RMA statistics for 2020:
+</p>
+<div id="divRecords"></div>`;
+
+						const records = lines.slice( 0, 30 );
+						renderGrid( records, columns, divRecords );
+
+						//window.requestIdleCallback( () => console.log( `idleCallback Time elapsed ${ ( performance.now() - timeStart ).toLocaleString() } ms` ) );
 
 					} );
 
@@ -292,216 +277,102 @@ ${ lines.slice( 0, 30 ).join( "\n" ) }`;
 
 
 
-			function renderGrid( data, target = divContent ) {
-				//console.log( "data", data );
-				//console.log( "target", target );
+			function renderGrid( data = [], columns = columns, target = divContent ) {
 
 				target.innerHTML = "";
 
-				data = data ||
-					[
-						[ "city", "city_ascii", "lat", "lng", "country", "iso2", "iso3", "admin_name", "capital", "population", "id" ],
-						[ "Kolkāta", "Kolkata", "22.5411", "88.3378", "India", "IN", "IND", "West Bengal", "admin", "17560000", "1356060520" ],
-						[ "Moscow", "Moscow", "55.7558", "37.6178", "Russia", "RU", "RUS", "Moskva", "primary", "17125000", "1643318494" ],
-					];
+				//console.log( "target", target );
 				//console.log( "data", data );
 
 				new gridjs.Grid( {
-					columns: data[ 0 ],
+					columns: columns,
 					fixedHeader: true,
 					//height: "30rem",
-					pagination: { limit: 20 },
-					search: true,
+					//pagination: { limit: 50 },
+					//search: true,
 					sort: true,
-					data: data.slice( 1 )
+					data: data
 				} ).render( target );
 
 			}
 
 
 
+			///////////////////
 
+			function renderNationalGrid() { // called with button in left menu
 
-///////////////////
-
-			function getNationalDataOld() { // called with button in left menu
+				if ( !lines ) alert( "please wait until entire raw data is loaded" );
 
 				divContent.innerHTML = `
 <h1>National Data for Cause of Crop Loss in ${ selYear.value }</h1>
-<p>
-	Total number of losses: ${ lines.length.toLocaleString() }<br>
-	Total acres planted: ${ lines.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) }<br>
-	Total indemnities paid: $${ lines.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) }<br>
-</p>
+<div>${ getRecordsSummary( lines ) }</div>
 <h2>Crops</h2>
 <div id=divCrops ></div>
 <h2>Perils</h2>
 <div id=divPerils ></div>`;
 
-				const cropTypes = [ ...new Set( lines.map( line => line[ 6 ] ) ) ].sort();
-				const dataCrops = cropTypes.map( crop => {
-					losses = lines.filter( line => line[ 6 ] === crop )
-					acres = losses.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 );
-					indemnities = losses.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 );
-					return [ crop, losses.length, acres, indemnities ];
+				const crops = getRecordsFiltered( lines, 6 );
+				renderGrid( crops.records, crops.columns, divCrops )
 
-				} );
-
-				dataCrops.unshift( [ "Crop",
-					{ name: "Losses", formatter: ( cell ) => `${ cell.toLocaleString() }` },
-					{ name: "Acres", formatter: ( cell ) => `${ cell.toLocaleString( undefined, { maximumFractionDigits: 0 } ) }` },
-					{ name: "Indemnities", formatter: ( cell ) => `$${ cell.toLocaleString( undefined, { maximumFractionDigits: 0 } ) }` }, ] );
-
-				renderGrid( dataCrops, divCrops );
-
-				const perils = [ ...new Set( lines.map( line => line[ 12 ] ) ) ].sort();
-				const dataPerils = perils.map( peril => {
-					losses = lines.filter( line => line[ 12 ] === peril )
-					acres = losses.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 );
-					indemnities = losses.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 );
-					return [ peril, losses.length, acres, indemnities ];
-				} );
-
-				dataPerils.unshift( [ "Peril",
-					{ name: "Losses", formatter: ( cell ) => `${ cell.toLocaleString() }` },
-					{ name: "Acres", formatter: ( cell ) => `${ cell.toLocaleString( undefined, { maximumFractionDigits: 0 } ) }` },
-					{ name: "Indemnities", formatter: ( cell ) => `$${ cell.toLocaleString( undefined, { maximumFractionDigits: 0 } ) }` }, ] );
-
-				renderGrid( dataPerils, divPerils );
+				const perils = getRecordsFiltered( lines, 12 );
+				renderGrid( perils.records, perils.columns, divPerils )
 
 			}
 
 
 
-			function getState( index ) {
+			function renderStatesGrid() {
 
-				abbreviation = abbrs[ index ];
-				state = states[ index ];
-				const cropTypes = [];
-				const perilTypes = [];
+				if ( !lines ) alert( "please wait until entire raw data is loaded" );
 
-				const records = lines.filter( line => line[ 2 ] === abbreviation )
-				//.map( line => line[ 4 ] ) ) ];
+				const states = getRecordsFiltered( lines, 2 );
 
+				renderGrid( states.records, states.columns, divContent );
 
-				getStats( records );
-
-// 				records.forEach( ( line ) => {
-
-// 					if ( !cropTypes.includes( line[ 6 ] ) ) { cropTypes.push( line[ 6 ] ); }
-
-// 					if ( !perilTypes.includes( line[ 12 ] ) ) { perilTypes.push( line[ 12 ] ); }
-
-// 				} );
-
-// 				cropTypes.sort();
-// 				perilTypes.sort()
-
-// 				const acresPlanted = records.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } )
-// 				const indemnities = records.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } )
-
-// 				htm =
-// 					`
-// <h2>${ state } - ${ selYear.value }</h2>
-// <p>State crop types: ${ cropTypes }</p>
-// <p>perilTypes: ${ perilTypes }</p>
-// <p>acresPlanted: ${ acresPlanted }</p>
-// <p>indemnities: $${ indemnities }</p>`
-
-// 				divContent.innerHTML = htm;
 			}
 
 
 
+			function renderStateGrid( index ) {
 
+				const abbreviation = abbrs[ index ];
 
-			function getStats( records = [] ) {
+				const records = lines.filter( line => line[ 2 ] === abbreviation );
 
-				const cropTypes = [];
-				let perilTypes = [];
-
-				records.forEach( ( line ) => {
-
-					if ( !cropTypes.includes( line[ 6 ] ) ) { cropTypes.push( line[ 6 ] ); }
-
-					if ( !perilTypes.includes( line[ 12 ] ) ) { perilTypes.push( line[ 12 ] ); }
-
-				} );
-
-				cropTypes.sort();
-				perilTypes.sort()
-
-				const acresPlanted = records.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } )
-				const indemnities = records.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } )
-
-				let htm =
-					`<h1>${ county }, ${ state } - ${ selYear.value }</h1>
-<a href="https://en.wikipedia.org/wiki/${ county }_County,_${ state }" target="_blank">Wikipedia entry</a>
-<a href="https://www.wolframalpha.com/input/?i=+${ county }+${ state }" target="_blank">Wolfram Alpha entry</a>
-<br>
-Crop types: ${ cropTypes.join( "; " ) }<br>
-County peril types types: ${ perilTypes.join( "; " ) }<br>
-County number of losses: ${ records.length }<br>
-County total acres planted: ${ acresPlanted }<br>
-County total indemnities paid: $${ indemnities }<br>
+				divContent.innerHTML =
+`<h2>${ states[ index ] } Cause of Loss ${ selYear.value }</h2>
+<div>${ getRecordsSummary( records ) }</div>
+<h3>Crops</h3>
+<div id=divStateCrops ></div>
+<h3>Perils</h3>
+<div id=divStatePerils ></div>
 `;
 
 
-				cropTypes.forEach( crop => {
+				const crops = getRecordsFiltered( records, 6 );
 
-					const cropRecords = records.filter( line => line[ 6 ] === crop );
+				renderGrid( crops.records, crops.columns, divStateCrops );
 
-					perilTypes = [ ...new Set( cropRecords.map( line => line[ 12 ] ) ) ];
+				const perils = getRecordsFiltered( records, 12 );
 
-					const acresPlanted = cropRecords.map( line => + line[ 18 ] );
-					const indemnities = cropRecords.map( line => + line[ 28 ] );
-
-					htm += `<h2 style=margin-bottom:0;>${ crop } - ${ cropRecords.length }</h2>
-				<div>
-				Acres planted: ${ acresPlanted.reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) }<br>
-				Total indemnities paid: $${ indemnities.reduce( ( a, b ) => a + b, 0 ).toLocaleString() }<br>
-				</div>`
-
-					perilTypes.forEach( peril => {
-
-						const perilRecords = cropRecords.filter( line => line[ 12 ] === peril );
-						const acresPeril = perilRecords.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } );
-						const indemnitiesPeril = perilRecords.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( 'en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 } );
-						htm += `<h3 style=margin-bottom:0; >${ peril } - losses ${ perilRecords.length } - acres ${ acresPeril } - indemnities ${ indemnitiesPeril }</h3>
-<details>
-	<summary>Individual records</summary>
-		${ perilRecords.join( "<br>" ) }
-</details>`
-					} )
-
-
-				} )
-
-				divContent.innerHTML = htm + `<br><hr>
-				<center title="Hello! Click me to go up to the top" ><a class=aDingbat href=javascript:window.scrollTo(0,0);> ❦ </a></center >`;
-
-				//+ "<h3>all records</h3>" + records.join( "<br>" );
-
-				window.scrollTo( 0, 0 );
+				renderGrid( perils.records, perils.columns, divStatePerils );
 
 			}
-
 
 
 
 			function getCounties( index ) {
 
+				if ( !lines ) { alert( "please wait until data is loaded" ); return };
+
 				abbreviation = abbrs[ index ];
 				state = states[ index ];
-				counties = [];
-
-				if ( !lines ) alert( "please wait until data is loaded" );
-
 				counties = [ ... new Set( lines.filter( line => line[ 2 ] === abbreviation ).map( line => line[ 4 ] ) ) ];
 
 				const div = document.body.querySelector( "#divState" + abbreviation );
 
-				const htm = counties.map( ( county, i ) => `<button onclick=getCounty("${ i }") >${ county }</button>` ).join( "<br>" );
+				const htm = counties.map( ( county, i ) => `<button onclick=renderCountyGrid(${ i }) >${ county }</button>` ).join( "<br>" );
 
 				div.innerHTML = `<p>${ counties.length } counties</p>${ htm }`;
 
@@ -509,252 +380,91 @@ County total indemnities paid: $${ indemnities }<br>
 
 
 
-			function getCounty( index ) {
+			function renderCountyGrid( index ) {
 
 				const county = counties[ index ];
-				const cropTypes = [];
-				let perilTypes = [];
 
 				const records = lines.filter( line => line[ 2 ] === abbreviation && line[ 4 ] === county );
-				//console.log( "records", records );
 
-				records.forEach( ( line ) => {
-
-					if ( !cropTypes.includes( line[ 6 ] ) ) { cropTypes.push( line[ 6 ] ); }
-
-					if ( !perilTypes.includes( line[ 12 ] ) ) { perilTypes.push( line[ 12 ] ); }
-
-				} );
-
-				cropTypes.sort();
-				perilTypes.sort()
-
-				const acresPlanted = records.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } )
-				const indemnities = records.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } )
-
-				let htm =
-					`<h1>${ county }, ${ state } - ${ selYear.value }</h1>
+				divContent.innerHTML =
+`<h2>${ county }, ${ state } Cause of Loss ${ selYear.value }</h2>
 <a href="https://en.wikipedia.org/wiki/${ county }_County,_${ state }" target="_blank">Wikipedia entry</a>
 <a href="https://www.wolframalpha.com/input/?i=+${ county }+${ state }" target="_blank">Wolfram Alpha entry</a>
+<div>${ getRecordsSummary( records ) }</div>
+<h3>Crops</h3>
+<div id=divCountyCrops ></div>
+<h3>Perils</h3>
+<div id=divCountyPerils ></div>
 <br>
-Crop types: ${ cropTypes.join( "; " ) }<br>
-County peril types types: ${ perilTypes.join( "; " ) }<br>
-County number of losses: ${ records.length }<br>
-County total acres planted: ${ acresPlanted }<br>
-County total indemnities paid: $${ indemnities }<br>
+<br>
+<center title="Hello! Click me to go up to the top" ><a class=aDingbat href=javascript:window.scrollTo(0,0);> ❦ </a></center >
 `;
 
+				const crops = getRecordsFiltered( records, 6 );
 
-				cropTypes.forEach( crop => {
+				renderGrid( crops.records, crops.columns, divCountyCrops );
 
-					const cropRecords = records.filter( line => line[ 6 ] === crop );
+				const perils = getRecordsFiltered( records, 12 );
 
-					perilTypes = [ ...new Set( cropRecords.map( line => line[ 12 ] ) ) ];
-
-					const acresPlanted = cropRecords.map( line => + line[ 18 ] );
-					const indemnities = cropRecords.map( line => + line[ 28 ] );
-
-					htm += `<h2 style=margin-bottom:0;>${ crop } - ${ cropRecords.length }</h2>
-				<div>
-				Acres planted: ${ acresPlanted.reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) }<br>
-				Total indemnities paid: $${ indemnities.reduce( ( a, b ) => a + b, 0 ).toLocaleString() }<br>
-				</div>`
-
-					perilTypes.forEach( peril => {
-
-						const perilRecords = cropRecords.filter( line => line[ 12 ] === peril );
-						const acresPeril = perilRecords.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } );
-						const indemnitiesPeril = perilRecords.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( 'en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 } );
-						htm += `<h3 style=margin-bottom:0; >${ peril } - losses ${ perilRecords.length } - acres ${ acresPeril } - indemnities ${ indemnitiesPeril }</h3>
-<details>
-	<summary>Individual records</summary>
-		${ perilRecords.join( "<br>" ) }
-</details>`
-					} )
-
-
-				} )
-
-				divContent.innerHTML = htm + `<br><hr>
-				<center title="Hello! Click me to go up to the top" ><a class=aDingbat href=javascript:window.scrollTo(0,0);> ❦ </a></center >`;
-
-				//+ "<h3>all records</h3>" + records.join( "<br>" );
-
-				window.scrollTo( 0, 0 );
+				renderGrid( perils.records, perils.columns, divCountyPerils );
 
 			}
 
 
 
 
-			// older routines
-			// simple
-			function listItems( index ) {
+			function getRecordsFiltered( linesFiltered = lines, index ) {
 
-				const items = [ ...new Set( lines.map( line => line[ index ] ) ) ];
+				const element = elements[ index ][ 0 ];
+				const types = [ ...new Set( linesFiltered.map( line => line[ index ] ) ) ].sort();
+				const records = types.map( type => {
+					losses = linesFiltered.filter( line => line[ index ] === type );
+					acres = losses.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 );
+					premium = losses.map( line => + line[ 21 ] ).reduce( ( a, b ) => a + b, 0 );
+					indemnities = losses.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 );
+					ratio = ( + indemnities ) / ( + premium );
 
-				divContent.innerText = items.join( "\n" );
-
-			}
-
-
-
-			// utils
-
-			// https://stackoverflow.com/questions/1669190/find-the-min-max-element-of-an-array-in-javascript
-
-			function arrayMax( arr ) {
-				return arr.reduce( function ( p, v ) {
-					return ( p > v ? p : v );
-				} );
-			}
-
-			function arrayMin( arr ) {
-				return arr.reduce( function ( p, v ) {
-					return ( p < v ? p : v );
-				} );
-			}
-
-			function arrayAverage( array ) {
-				return array.reduce( ( a, b ) => a + b ) / array.length;
-			}
-
-			function reducer( accumulator, curr ) { return accumulator + curr; }
-
-
-			//More nuanced view
-
-			function listItems( index ) { // detailed
-
-				let items = [];
-				const counts = [];
-				const idx = selElement.selectedIndex;
-
-				if ( idx > 17 ) {
-
-					const items = lines.map( item => + item[ index ] )
-
-					divContent.innerText = `
-${ elements[ idx ].join( "\n" ) } \n
-
-items: ${ items.length.toLocaleString() }\n
-sum: ${ items.reduce( ( a, b ) => a + b, 0 ).toLocaleString() }\n
-max: ${ arrayMax( items ).toLocaleString() }\n
-min: ${ arrayMin( items ).toLocaleString() }\n
-avg: ${ arrayAverage( items ).toLocaleString() }\n`;
-
-					return;
-
-				}
-
-				lines.forEach( ( line ) => {
-
-					const item = line[ index ];
-
-					if ( !items.includes( item ) ) {
-
-						items.push( item );
-						counts.push( 1 );
-
-					} else {
-
-						counts[ items.indexOf( item ) ]++;
-
-					}
-
+					return [ type, losses.length, acres, premium, indemnities, + ratio ];
 				} );
 
-				const text = items.map( ( item, index ) => item + " - " + counts[ index ].toLocaleString() );
-				divContent.innerText = `
-${ elements[ idx ].join( "\n" ) } - followed by number of items in the category\n
-${ text.join( "\n" ) }`;
+				columns = [ element,
+					{ name: "Losses", formatter: ( cell ) => `${ cell.toLocaleString() }` },
+					{ name: "Acres", formatter: ( cell ) => `${ cell.toLocaleString( undefined, { maximumFractionDigits: 0 } ) }` },
+					{ name: "Premium", formatter: ( cell ) => `$${ cell.toLocaleString( undefined, { maximumFractionDigits: 0 } ) }` },
+					{ name: "Indemnities", formatter: ( cell ) => `$${ cell.toLocaleString( undefined, { maximumFractionDigits: 0 } ) }` },
+					{ name: "Loss ratio", formatter: ( cell ) => `${ cell.toLocaleString( undefined, { maximumFractionDigits: 2 } ) }` },
 
-			}
+				];
 
-
-			function getCountyDataSimple() {  // not used
-
-				counties = [ ...new Set( lines.map( line => {
-
-					obj = { "name": line[ 4 ], "state": line[ 2 ] };
-
-					return obj;
-
-				} ) ) ];
-
-				divContent.innerText = counties.map( county => `county: ${ county.county } ` ).join( "\n" );
+				return { records, columns };
 
 			}
 
 
 
-			function getCountyData() {
+			function getRecordsSummary( records ) {
 
-				countyIndex = [];
-				counties = [];
-
-				lines.forEach( ( line ) => {
-
-					const name = line[ 4 ];
-
-					if ( !countyIndex.includes( name ) ) {
-
-						countyIndex.push( name );
-						counties.push( {
-							"name": line[ 4 ],
-							"state": line[ 2 ],
-							"fips": ( line[ 1 ] + line[ 3 ] ),
-							"acresPlanted": + line[ 20 ],
-							"liability": + line[ 22 ],
-							"indemnity": + line[ 20 ],
-							"crops": [],
-							"cropAcres": [],
-							"cropIndemnities": [],
-							"lossCodes": []
-
-						} );
+				const totalLosses = records.length;
+				const totalAcresPlanted = records.map( line => + line[ 18 ] ).reduce( ( a, b ) => a + b, 0 ).toLocaleString( undefined, { maximumFractionDigits: 0 } )
+				const premiums = records.map( line => + line[ 21 ] ).reduce( ( a, b ) => a + b, 0 );
+				const indemnities = records.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 );
 
 
-					} else {
+				const totalPremiums = premiums.toLocaleString( undefined, { maximumFractionDigits: 0 } )
+				const totalIndemnities = indemnities.toLocaleString( undefined, { maximumFractionDigits: 0 } )
+				const totalRatio = ( ( + indemnities ) / ( + premiums ) ).toLocaleString( undefined, { maximumFractionDigits: 2 } );
 
-						const county = counties[ countyIndex.indexOf( name ) ];
-						county.acresPlanted += +line[ 20 ];
-						county.liability += +line[ 22 ];
-						county.indemnity += +line[ 28 ];
+				summary =
+`<p>
+Number of losses: ${totalLosses}<br>
+Total acres planted: ${totalAcresPlanted}<br>
+Total premiums: $${totalPremiums}<br>
+Total indemnities paid: $${totalIndemnities}<br>
+Indemnities/premiums ratio: ${totalRatio}<br>
+</p>`;
+				return summary;
 
-					}
-
-					const county = counties[ countyIndex.indexOf( name ) ];
-
-					if ( !county.crops.includes( line[ 6 ] ) ) {
-						county.crops.push( line[ 6 ] );
-						county.cropAcres.push( + line[ 20 ] );
-						county.cropIndemnities.push( + line[ 28 ] );
-					} else {
-						//crop = county.crop[ county.crop.indexOf( line[ 6 ] ) ];
-						county.cropAcres[ county.crops.indexOf( line[ 6 ] ) ] += + line[ 20 ];
-						county.cropIndemnities[ county.crops.indexOf( line[ 6 ] ) ] += + line[ 28 ];
-					}
-
-					if ( !county.lossCodes.includes( line[ 11 ] ) ) {
-
-						county.lossCodes.push( line[ 11 ] );
-
-					}
-				} );
-
-
-
-				divContent.innerText = counties.map( county =>
-					`${ county.name }, ${ county.state }, ${ county.fips }
-Acres planted: ${ county.acresPlanted.toLocaleString() }
-Total liability: ${ county.liability.toLocaleString() }
-Total indemnity: $${ county.indemnity.toLocaleString() }
-Crops: ${ county.crops.join( "; " ) }
-Crops acres: ${ county.cropAcres.map( item => item.toLocaleString() ).join( "; " ) }
-Crops Indemnities: $${ county.cropIndemnities.map( item => item.toLocaleString() ).join( "; $" ) }
-Loss Codes: ${ county.lossCodes.join( "; " ) }
-` ).join( "\n" );
+				//{ totalLosses, totalAcresPlanted, totalPremiums, totalIndemnities, totalRatio }
 
 			}
 
