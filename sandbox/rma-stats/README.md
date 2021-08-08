@@ -84,11 +84,10 @@ const elements = [
 
 ## To Do / Wish List
 
+* 2021-08-07 ~ Add collapse all detail tags button
+* 2021-08-07 ~ Add descriptive tooltips to headings
+* 2021-08-07 ~ Add some numbers of iterest to summaries or buttons
 * 2021-08-02 ~ Contact USDA RMA
-
-* 2021-08-04 ~ Counties page ~ add acres and indemnities number to buttons?
-* 2021-08-04 ~ Counties page ~ click state button to vire data in divContent
-* 2021-08-02 ~ Add a state data page
 * 2021-08-02 ~ Make mobile friendly
 * 2021-08-02 ~ Add location.hash links to select counties
 * 2021-08-02 ~ Add display random county at start up
@@ -107,7 +106,19 @@ const elements = [
 
 ## Change Log
 
-## 2021-08-04
+### 2021-08-07
+
+* Much refactored
+* Make good use of grid.js
+* Now under 500 lines
+
+Dealt with
+
+* 2021-08-04 ~ Counties page ~ add acres and indemnities number to buttons?
+* 2021-08-04 ~ Counties page ~ click state button to viiw data in divContent
+* 2021-08-02 ~ Add a state data page
+
+### 2021-08-04
 
 * Add grid.js to render the national data. grid.js is a ton of fun!
 * Clean things up a bit

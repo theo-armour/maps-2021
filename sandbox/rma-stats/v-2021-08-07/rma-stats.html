@@ -69,18 +69,17 @@
 			</a>
 		</h1>
 		<p>
-			Examine the statistics of USDA Risk Management Agency Cause of Loss Historical <a
+			View the statistics of USDA Risk Management Agency Cause of Loss Historical <a
 				href="https://www.rma.usda.gov/en/Information-Tools/Summary-of-Business/Cause-of-Loss"
-				target="_blank">Data Files</a> as text
+				target="_blank">Data Files</a>
 		</p>
 
 		<details>
 
-			<summary class="summary-primary gmd-1">Select a year:</summary>
+			<summary class="summary-primary gmd-1">Select a year</summary>
 
 			<select id=selYear onclick=requestFile(); size=11></select>
 
-			</label>
 
 			<div id=divFileOpenZip>
 				<p>&nbsp;</p>
@@ -332,7 +331,7 @@ Below you can see the first 30 of ${ lines.length.toLocaleString() } lines of RM
 
 				const states = getRecordsFiltered( lines, 2 );
 				divContent.innerHTML =
-`<h2>50 States Cause of Loss ${ selYear.value }</h2>
+					`<h2>50 States Cause of Loss ${ selYear.value }</h2>
 <h3>Crops</h3>
 <div id=divStates></div>
 <br>
@@ -353,7 +352,7 @@ Below you can see the first 30 of ${ lines.length.toLocaleString() } lines of RM
 				const records = lines.filter( line => line[ 2 ] === abbreviation );
 
 				divContent.innerHTML =
-`<h2>${ states[ index ] } Cause of Loss ${ selYear.value }</h2>
+					`<h2>${ states[ index ] } Cause of Loss ${ selYear.value }</h2>
 <div>${ getRecordsSummary( records ) }</div>
 <h3>Crops</h3>
 <div id=divStateCrops ></div>
@@ -401,7 +400,7 @@ Below you can see the first 30 of ${ lines.length.toLocaleString() } lines of RM
 				const records = lines.filter( line => line[ 2 ] === abbreviation && line[ 4 ] === county );
 
 				divContent.innerHTML =
-`<h2>${ county }, ${ state } Cause of Loss ${ selYear.value }</h2>
+					`<h2>${ county }, ${ state } Cause of Loss ${ selYear.value }</h2>
 <a href="https://en.wikipedia.org/wiki/${ county }_County,_${ state }" target="_blank">Wikipedia entry</a>
 <a href="https://www.wolframalpha.com/input/?i=+${ county }+${ state }" target="_blank">Wolfram Alpha entry</a>
 <div>${ getRecordsSummary( records ) }</div>
@@ -423,7 +422,6 @@ Below you can see the first 30 of ${ lines.length.toLocaleString() } lines of RM
 				renderGrid( perils.records, perils.columns, divCountyPerils );
 
 			}
-
 
 
 
@@ -469,12 +467,12 @@ Below you can see the first 30 of ${ lines.length.toLocaleString() } lines of RM
 				const totalRatio = ( ( + indemnities ) / ( + premiums ) ).toLocaleString( undefined, { maximumFractionDigits: 2 } );
 
 				summary =
-`<p>
-Number of losses: ${totalLosses}<br>
-Total acres planted: ${totalAcresPlanted}<br>
-Total premiums: $${totalPremiums}<br>
-Total indemnities paid: $${totalIndemnities}<br>
-Indemnities/premiums ratio: ${totalRatio}<br>
+					`<p>
+Number of losses: ${ totalLosses }<br>
+Total acres planted: ${ totalAcresPlanted }<br>
+Total premiums: $${ totalPremiums }<br>
+Total indemnities paid: $${ totalIndemnities }<br>
+Indemnities/premiums ratio: ${ totalRatio }<br>
 </p>`;
 				return summary;
 
