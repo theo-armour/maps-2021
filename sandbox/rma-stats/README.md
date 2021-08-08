@@ -86,7 +86,7 @@ const elements = [
 
 * 2021-08-07 ~ Add collapse all detail tags button
 * 2021-08-07 ~ Add descriptive tooltips to headings
-* 2021-08-07 ~ Add some numbers of iterest to summaries or buttons
+* 2021-08-04 ~ Counties page ~ add acres and indemnities number to buttons
 * 2021-08-02 ~ Contact USDA RMA
 * 2021-08-02 ~ Make mobile friendly
 * 2021-08-02 ~ Add location.hash links to select counties
@@ -109,13 +109,14 @@ const elements = [
 ### 2021-08-07
 
 * Much refactored
-* Make good use of grid.js
+* Makes good use of grid.js
 * Now under 500 lines
+* Loads 38 MB off GitHub at good speed
+* User experience is becoming quite consistent and clear
 
 Dealt with
 
-* 2021-08-04 ~ Counties page ~ add acres and indemnities number to buttons?
-* 2021-08-04 ~ Counties page ~ click state button to viiw data in divContent
+* 2021-08-04 ~ Counties page ~ click state button to view data in divContent
 * 2021-08-02 ~ Add a state data page
 
 ### 2021-08-04

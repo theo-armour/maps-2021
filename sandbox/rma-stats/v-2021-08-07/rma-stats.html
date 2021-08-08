@@ -203,7 +203,7 @@
 			function requestFile( url = "../rma-sample.zip", callback = onLoad ) {
 
 				divContent.innerHTML =
-					`<h2>It takes a few seconds for the data file to load...</h2>
+`<h2>It takes a few seconds for the data file to load...</h2>
 <p>Once this message is replaced, click on a state in the left menu to view the counties</p>
 <p>Then click any of the county buttons to view the statistics</p>`;
 
@@ -260,9 +260,7 @@ Time elapsed ${ ( performance.now() - timeStart ).toLocaleString() } ms<br>
 							`${ htm }
 <h3>Data Sample</h3>
 <p>Click the buttons in the left menu to view selected national, state and county data sets.</p>
-<p>
-Below you can see the first 30 of ${ lines.length.toLocaleString() } lines of RMA statistics for 2020:
-</p>
+<p>Below you can see the first 30 of ${ lines.length.toLocaleString() } lines of RMA statistics for 2020:</p>
 <div id="divRecords"></div>`;
 
 						const records = lines.slice( 0, 30 );
@@ -310,8 +308,7 @@ Below you can see the first 30 of ${ lines.length.toLocaleString() } lines of RM
 <div id=divCrops ></div>
 <h2>Perils</h2>
 <div id=divPerils ></div>
-<br>
-<br>
+<br><br>
 <center title="Hello! Click me to go up to the top" ><a class=aDingbat href=javascript:window.scrollTo(0,0);> ❦ </a></center >
 `;
 
@@ -334,8 +331,7 @@ Below you can see the first 30 of ${ lines.length.toLocaleString() } lines of RM
 					`<h2>50 States Cause of Loss ${ selYear.value }</h2>
 <h3>Crops</h3>
 <div id=divStates></div>
-<br>
-<br>
+<br><br>
 <center title="Hello! Click me to go up to the top" ><a class=aDingbat href=javascript:window.scrollTo(0,0);> ❦ </a></center >
 `;
 
@@ -358,8 +354,7 @@ Below you can see the first 30 of ${ lines.length.toLocaleString() } lines of RM
 <div id=divStateCrops ></div>
 <h3>Perils</h3>
 <div id=divStatePerils ></div>
-<br>
-<br>
+<br><br>
 <center title="Hello! Click me to go up to the top" ><a class=aDingbat href=javascript:window.scrollTo(0,0);> ❦ </a></center >
 `;
 
@@ -408,8 +403,7 @@ Below you can see the first 30 of ${ lines.length.toLocaleString() } lines of RM
 <div id=divCountyCrops ></div>
 <h3>Perils</h3>
 <div id=divCountyPerils ></div>
-<br>
-<br>
+<br><br>
 <center title="Hello! Click me to go up to the top" ><a class=aDingbat href=javascript:window.scrollTo(0,0);> ❦ </a></center >
 `;
 
@@ -461,13 +455,12 @@ Below you can see the first 30 of ${ lines.length.toLocaleString() } lines of RM
 				const premiums = records.map( line => + line[ 21 ] ).reduce( ( a, b ) => a + b, 0 );
 				const indemnities = records.map( line => + line[ 28 ] ).reduce( ( a, b ) => a + b, 0 );
 
-
 				const totalPremiums = premiums.toLocaleString( undefined, { maximumFractionDigits: 0 } )
 				const totalIndemnities = indemnities.toLocaleString( undefined, { maximumFractionDigits: 0 } )
 				const totalRatio = ( ( + indemnities ) / ( + premiums ) ).toLocaleString( undefined, { maximumFractionDigits: 2 } );
 
 				summary =
-					`<p>
+`<p>
 Number of losses: ${ totalLosses }<br>
 Total acres planted: ${ totalAcresPlanted }<br>
 Total premiums: $${ totalPremiums }<br>
@@ -475,8 +468,6 @@ Total indemnities paid: $${ totalIndemnities }<br>
 Indemnities/premiums ratio: ${ totalRatio }<br>
 </p>`;
 				return summary;
-
-				//{ totalLosses, totalAcresPlanted, totalPremiums, totalIndemnities, totalRatio }
 
 			}
 
