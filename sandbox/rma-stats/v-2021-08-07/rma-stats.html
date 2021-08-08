@@ -262,7 +262,7 @@ Time elapsed ${ ( performance.now() - timeStart ).toLocaleString() } ms<br>
 <h3>Data Sample</h3>
 <p>Click the buttons in the left menu to view selected national, state and county data sets.</p>
 <p>
-Below you can aee the first 30 of ${ lines.length.toLocaleString() } lines of RMA statistics for 2020:
+Below you can see the first 30 of ${ lines.length.toLocaleString() } lines of RMA statistics for 2020:
 </p>
 <div id="divRecords"></div>`;
 
@@ -310,7 +310,11 @@ Below you can aee the first 30 of ${ lines.length.toLocaleString() } lines of RM
 <h2>Crops</h2>
 <div id=divCrops ></div>
 <h2>Perils</h2>
-<div id=divPerils ></div>`;
+<div id=divPerils ></div>
+<br>
+<br>
+<center title="Hello! Click me to go up to the top" ><a class=aDingbat href=javascript:window.scrollTo(0,0);> ❦ </a></center >
+`;
 
 				const crops = getRecordsFiltered( lines, 6 );
 				renderGrid( crops.records, crops.columns, divCrops )
@@ -327,8 +331,16 @@ Below you can aee the first 30 of ${ lines.length.toLocaleString() } lines of RM
 				if ( !lines ) alert( "please wait until entire raw data is loaded" );
 
 				const states = getRecordsFiltered( lines, 2 );
+				divContent.innerHTML =
+`<h2>50 States Cause of Loss ${ selYear.value }</h2>
+<h3>Crops</h3>
+<div id=divStates></div>
+<br>
+<br>
+<center title="Hello! Click me to go up to the top" ><a class=aDingbat href=javascript:window.scrollTo(0,0);> ❦ </a></center >
+`;
 
-				renderGrid( states.records, states.columns, divContent );
+				renderGrid( states.records, states.columns, divStates );
 
 			}
 
@@ -347,8 +359,10 @@ Below you can aee the first 30 of ${ lines.length.toLocaleString() } lines of RM
 <div id=divStateCrops ></div>
 <h3>Perils</h3>
 <div id=divStatePerils ></div>
+<br>
+<br>
+<center title="Hello! Click me to go up to the top" ><a class=aDingbat href=javascript:window.scrollTo(0,0);> ❦ </a></center >
 `;
-
 
 				const crops = getRecordsFiltered( records, 6 );
 
